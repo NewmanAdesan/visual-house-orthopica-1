@@ -1,14 +1,14 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './AmbientBreak.css';
 
-export default function AmbientBreak() {
+const AmbientBreak = React.memo(() => {
     const canvasRef = useRef(null);
+    const animId = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let animId;
         let aw, ah;
 
         const nodes = [];
@@ -30,8 +30,14 @@ export default function AmbientBreak() {
             ah = canvas.height = canvas.offsetHeight;
         }
 
+        let resizeTimeout;
+        function handleResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeAmbient, 100);
+        }
+
         resizeAmbient();
-        window.addEventListener('resize', resizeAmbient);
+        window.addEventListener('resize', handleResize);
 
         function drawAmbient() {
             ctx.clearRect(0, 0, aw, ah);
@@ -74,14 +80,15 @@ export default function AmbientBreak() {
                 n.y += Math.cos(at * 0.2 + n.phase) * 0.0001;
             });
 
-            animId = requestAnimationFrame(drawAmbient);
+            animId.current = requestAnimationFrame(drawAmbient);
         }
 
         drawAmbient();
 
         return () => {
-            cancelAnimationFrame(animId);
-            window.removeEventListener('resize', resizeAmbient);
+            if (animId.current) cancelAnimationFrame(animId.current);
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimeout);
         };
     }, []);
 
@@ -90,4 +97,6 @@ export default function AmbientBreak() {
             <canvas ref={canvasRef} />
         </div>
     );
-}
+});
+
+export default AmbientBreak;

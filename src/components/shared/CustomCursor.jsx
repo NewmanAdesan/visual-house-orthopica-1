@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './CustomCursor.css';
 
-export default function CustomCursor() {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+const CustomCursor = React.memo(() => {
     const [isTouch, setIsTouch] = useState(false);
+    const cursorRef = useRef(null);
+    const ringRef = useRef(null);
+    const position = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
@@ -15,15 +17,26 @@ export default function CustomCursor() {
         let requestId;
 
         const updatePosition = (e) => {
-            // Small optimization: instead of state pushing per mouse move directly to DOM, we can use state here since it's simple enough
-            // But using transform with frame guarantees smoothness.
-            setPosition({ x: e.clientX, y: e.clientY });
+            position.current = { x: e.clientX, y: e.clientY };
+            if (!requestId) {
+                requestId = requestAnimationFrame(updateDOM);
+            }
+        };
+
+        const updateDOM = () => {
+            if (cursorRef.current && ringRef.current) {
+                const transform = `translate3d(${position.current.x}px, ${position.current.y}px, 0)`;
+                cursorRef.current.style.transform = transform;
+                ringRef.current.style.transform = transform;
+            }
+            requestId = null;
         };
 
         window.addEventListener('mousemove', updatePosition, { passive: true });
 
         return () => {
             window.removeEventListener('mousemove', updatePosition);
+            if (requestId) cancelAnimationFrame(requestId);
         };
     }, []);
 
@@ -31,14 +44,10 @@ export default function CustomCursor() {
 
     return (
         <>
-            <div
-                className="cursor"
-                style={{ transform: `translate3d(${position.x}px, ${position.y}px, 0)` }}
-            />
-            <div
-                className="cursor-ring"
-                style={{ transform: `translate3d(${position.x}px, ${position.y}px, 0)` }}
-            />
+            <div className="cursor" ref={cursorRef} />
+            <div className="cursor-ring" ref={ringRef} />
         </>
     );
-}
+});
+
+export default CustomCursor;

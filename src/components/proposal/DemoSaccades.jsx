@@ -1,14 +1,14 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './DemoSaccades.css';
 
-export default function DemoSaccades() {
+const DemoSaccades = React.memo(() => {
     const canvasRef = useRef(null);
+    const animId = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let animId;
         let sw, sh;
 
         const saccadeTargets = [
@@ -30,8 +30,14 @@ export default function DemoSaccades() {
             sh = canvas.height = canvas.offsetHeight;
         }
 
+        let resizeTimeout;
+        function handleResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeSaccades, 100);
+        }
+
         resizeSaccades();
-        window.addEventListener('resize', resizeSaccades);
+        window.addEventListener('resize', handleResize);
 
         function drawSaccades() {
             ctx.clearRect(0, 0, sw, sh);
@@ -83,14 +89,15 @@ export default function DemoSaccades() {
             ctx.lineWidth = 1;
             ctx.stroke();
 
-            animId = requestAnimationFrame(drawSaccades);
+            animId.current = requestAnimationFrame(drawSaccades);
         }
 
         drawSaccades();
 
         return () => {
-            cancelAnimationFrame(animId);
-            window.removeEventListener('resize', resizeSaccades);
+            if (animId.current) cancelAnimationFrame(animId.current);
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimeout);
         };
     }, []);
 
@@ -100,4 +107,6 @@ export default function DemoSaccades() {
             <div className="demo-label">Saccades — Exercise Preview</div>
         </div>
     );
-}
+});
+
+export default DemoSaccades;

@@ -1,13 +1,13 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
-export default function HeroCanvas() {
+const HeroCanvas = React.memo(() => {
     const canvasRef = useRef(null);
+    const animId = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let animId;
         let hw, hh;
         let ht = 0;
 
@@ -22,8 +22,14 @@ export default function HeroCanvas() {
             hh = canvas.height = canvas.offsetHeight;
         }
 
+        let resizeTimeout;
+        function handleResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeHero, 100);
+        }
+
         resizeHero();
-        window.addEventListener('resize', resizeHero);
+        window.addEventListener('resize', handleResize);
 
         function drawHero() {
             ctx.clearRect(0, 0, hw, hh);
@@ -67,16 +73,19 @@ export default function HeroCanvas() {
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(hw, y); ctx.stroke();
             }
 
-            animId = requestAnimationFrame(drawHero);
+            animId.current = requestAnimationFrame(drawHero);
         }
 
         drawHero();
 
         return () => {
-            cancelAnimationFrame(animId);
-            window.removeEventListener('resize', resizeHero);
+            if (animId.current) cancelAnimationFrame(animId.current);
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimeout);
         };
     }, []);
 
     return <canvas ref={canvasRef} id="heroCanvas" />;
-}
+});
+
+export default HeroCanvas;

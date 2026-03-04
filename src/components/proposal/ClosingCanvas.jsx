@@ -1,21 +1,28 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
-export default function ClosingCanvas() {
+const ClosingCanvas = React.memo(() => {
     const canvasRef = useRef(null);
+    const animId = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let animId;
         let cw, ch;
 
         function resizeClosing() {
             cw = canvas.width = canvas.offsetWidth;
             ch = canvas.height = canvas.offsetHeight;
         }
+
+        let resizeTimeout;
+        function handleResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeClosing, 100);
+        }
+
         resizeClosing();
-        window.addEventListener('resize', resizeClosing);
+        window.addEventListener('resize', handleResize);
 
         let ct = 0;
         function drawClosing() {
@@ -42,16 +49,19 @@ export default function ClosingCanvas() {
                 }
                 ctx.stroke();
             }
-            animId = requestAnimationFrame(drawClosing);
+            animId.current = requestAnimationFrame(drawClosing);
         }
 
         drawClosing();
 
         return () => {
-            cancelAnimationFrame(animId);
-            window.removeEventListener('resize', resizeClosing);
+            if (animId.current) cancelAnimationFrame(animId.current);
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimeout);
         };
     }, []);
 
     return <canvas ref={canvasRef} />;
-}
+});
+
+export default ClosingCanvas;

@@ -1,14 +1,14 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './DemoTracking.css';
 
-export default function DemoTracking() {
+const DemoTracking = React.memo(() => {
     const canvasRef = useRef(null);
+    const animId = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let animId;
         let tw, th;
         let tt = 0;
 
@@ -17,8 +17,14 @@ export default function DemoTracking() {
             th = canvas.height = canvas.offsetHeight;
         }
 
+        let resizeTimeout;
+        function handleResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeTracking, 100);
+        }
+
         resizeTracking();
-        window.addEventListener('resize', resizeTracking);
+        window.addEventListener('resize', handleResize);
 
         function drawTracking() {
             ctx.clearRect(0, 0, tw, th);
@@ -59,13 +65,14 @@ export default function DemoTracking() {
             ctx.lineTo(tw * 0.9, th / 2);
             ctx.stroke();
 
-            animId = requestAnimationFrame(drawTracking);
+            animId.current = requestAnimationFrame(drawTracking);
         }
         drawTracking();
 
         return () => {
-            cancelAnimationFrame(animId);
-            window.removeEventListener('resize', resizeTracking);
+            if (animId.current) cancelAnimationFrame(animId.current);
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimeout);
         };
     }, []);
 
@@ -75,4 +82,6 @@ export default function DemoTracking() {
             <div className="demo-label">Smooth Tracking — Exercise Preview</div>
         </div>
     );
-}
+});
+
+export default DemoTracking;
