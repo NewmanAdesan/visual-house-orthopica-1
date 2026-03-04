@@ -8,8 +8,8 @@ const content = {
         backLink: "Back to Proposal"
     },
     es: {
-        copy: "[ES] Visual House Ortoptica — Solution Proposal — Companion Document",
-        backLink: "[ES] Back to Proposal"
+        copy: "Visual House Ortoptica — Propuesta de Solución — Documento Complementario",
+        backLink: "Volver a la Propuesta"
     }
 };
 

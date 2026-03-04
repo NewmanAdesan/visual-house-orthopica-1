@@ -20,17 +20,17 @@ const content = {
         ]
     },
     es: {
-        navTitle: "[ES] User Stories & Acceptance Criteria",
-        navBack: "[ES] Back to Proposal",
-        headerTag: "[ES] Visual House Ortoptica — Companion Document",
-        headerTitle1: "[ES] User Stories &",
-        headerTitle2: "[ES] Acceptance Criteria",
-        headerDesc: "[ES] Every action a user can take in the system, and exactly how the system should respond. Written in plain language so that clinical staff, developers, and decision-makers are reading from the same page.",
-        tocTitle: "[ES] Contents",
+        navTitle: "Historias de Usuario y Criterios de Aceptación",
+        navBack: "Volver a la Propuesta",
+        headerTag: "Visual House Ortoptica — Documento Complementario",
+        headerTitle1: "Historias de Usuario y",
+        headerTitle2: "Criterios de Aceptación",
+        headerDesc: "Cada acción que un usuario puede realizar en el sistema, y exactamente cómo debe responder el sistema. Escrito en lenguaje sencillo para que el personal clínico, los desarrolladores y los tomadores de decisiones lean desde la misma página.",
+        tocTitle: "Contenido",
         tocItems: [
-            { id: "patient", num: "01", label: "[ES] The Patient Journey" },
-            { id: "therapist", num: "02", label: "[ES] The Therapist Journey" },
-            { id: "admin", num: "03", label: "[ES] The Administrator Journey" }
+            { id: "patient", num: "01", label: "El Recorrido del Paciente" },
+            { id: "therapist", num: "02", label: "El Recorrido del Terapeuta" },
+            { id: "admin", num: "03", label: "El Recorrido del Administrador" }
         ]
     }
 };

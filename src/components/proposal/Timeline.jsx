@@ -69,69 +69,69 @@ const content = {
         totalTime: "6 – 7 Months"
     },
     es: {
-        tag: "[ES] 08 — Timeline & Phases",
-        titlePart1: "[ES] A Realistic Path",
-        titlePart2: "[ES] to MVP",
+        tag: "08 — Cronograma y Fases",
+        titlePart1: "Un Camino Realista",
+        titlePart2: "Hacia el MVP",
         phaseGroupA: {
-            title: "[ES] Phase A — Discovery & Design",
-            badge: "[ES] Separately Budgeted"
+            title: "Fase A — Descubrimiento y Diseño",
+            badge: "Presupuestado por Separado"
         },
         phaseDeliverables: {
-            title: "[ES] Phase A Deliverables",
-            text: "[ES] Complete UI/UX designs for all three user roles. Full user stories and acceptance criteria. Technical architecture specification. Exercise engine specification. Clinical observation documentation. These deliverables are yours regardless of what follows."
+            title: "Entregables de la Fase A",
+            text: "Diseños UI/UX completos para los tres roles de usuario. Historias de usuario y criterios de aceptación completos. Especificación de arquitectura técnica. Especificación del motor de ejercicios. Documentación de observación clínica. Estos entregables son suyos independientemente de lo que siga."
         },
         phaseGroupB: {
-            title: "[ES] Phase B — Development to Launch",
-            badge: "[ES] Budget Submitted After Phase A"
+            title: "Fase B — Del Desarrollo al Lanzamiento",
+            badge: "Presupuesto Presentado Después de la Fase A"
         },
         phasesA: [
             {
-                num: "[ES] Phase 00",
-                name: "[ES] Discovery & Design",
-                items: ["[ES] Observe real therapy sessions", "[ES] Document exercise behavior precisely", "[ES] Define design system", "[ES] Build full UI/UX for patient and therapist", "[ES] Clinical approval on interface"],
-                weeks: "[ES] Weeks 1–6",
-                label: "[ES] Foundation"
+                num: "Fase 00",
+                name: "Descubrimiento y Diseño",
+                items: ["Observar sesiones de terapia reales", "Documentar precisamente el comportamiento de los ejercicios", "Definir sistema de diseño", "Construir UI/UX completa para paciente y terapeuta", "Aprobación clínica de la interfaz"],
+                weeks: "Semanas 1–6",
+                label: "Cimientos"
             }
         ],
         phasesB: [
             {
-                num: "[ES] Phase 01",
-                name: "[ES] Clinical Core",
-                items: ["[ES] Authentication + role-based access", "[ES] Patient registration + diagnosis", "[ES] Therapy program data structure + backend logic", "[ES] Database architecture", "[ES] Admin panel"],
-                weeks: "[ES] Weeks 7–11",
-                label: "[ES] Backend"
+                num: "Fase 01",
+                name: "Núcleo Clínico",
+                items: ["Autenticación + acceso por roles", "Registro de paciente + diagnóstico", "Estructura de datos del programa de terapia + lógica backend", "Arquitectura de base de datos", "Panel de administración"],
+                weeks: "Semanas 7–11",
+                label: "Backend"
             },
             {
-                num: "[ES] Phase 02",
-                name: "[ES] The Engine",
-                items: ["[ES] Canvas environment", "[ES] 4 exercise types", "[ES] Therapist-configurable parameters", "[ES] Session controls", "[ES] Smooth performance validation"],
-                weeks: "[ES] Weeks 12–16",
-                label: "[ES] Core Product"
+                num: "Fase 02",
+                name: "El Motor",
+                items: ["Entorno Canvas", "4 tipos de ejercicios", "Parámetros configurables por el terapeuta", "Controles de sesión", "Validación de rendimiento fluido"],
+                weeks: "Semanas 12–16",
+                label: "Producto Central"
             },
             {
-                num: "[ES] Phase 03",
-                name: "[ES] Clinical Panel",
-                items: ["[ES] Therapist dashboard", "[ES] Program assignment interface", "[ES] Adherence overview", "[ES] Progress visualization", "[ES] Parameter adjustment"],
-                weeks: "[ES] Weeks 17–21",
-                label: "[ES] Professional"
+                num: "Fase 03",
+                name: "Panel Clínico",
+                items: ["Panel del terapeuta", "Interfaz de asignación de programas", "Resumen de adherencia", "Visualización de progreso", "Ajuste de parámetros"],
+                weeks: "Semanas 17–21",
+                label: "Profesional"
             },
             {
-                num: "[ES] Phase 04",
-                name: "[ES] Polish + Reports",
-                items: ["[ES] PDF/Excel export", "[ES] Full QA", "[ES] Performance audit", "[ES] Security audit", "[ES] Patient UX review — child-user assumption", "[ES] Spanish language review"],
-                weeks: "[ES] Weeks 22–24",
-                label: "[ES] Refinement"
+                num: "Fase 04",
+                name: "Pulido + Reportes",
+                items: ["Exportación a PDF/Excel", "QA Completo", "Auditoría de rendimiento", "Auditoría de seguridad", "Revisión de UX de paciente — bajo el supuesto de un usuario infantil", "Revisión de idioma Español"],
+                weeks: "Semanas 22–24",
+                label: "Refinamiento"
             },
             {
-                num: "[ES] Phase 05",
-                name: "[ES] MVP Launch",
-                items: ["[ES] Real patient testing", "[ES] Clinical sign-off", "[ES] Bug resolution", "[ES] Production deploy", "[ES] Handover documentation"],
-                weeks: "[ES] Weeks 25–27",
-                label: "[ES] Live"
+                num: "Fase 05",
+                name: "Lanzamiento del MVP",
+                items: ["Pruebas con pacientes reales", "Firma de aprobación clínica", "Resolución de errores", "Despliegue a producción", "Documentación de entrega"],
+                weeks: "Semanas 25–27",
+                label: "En Vivo"
             }
         ],
-        totalDesc: "[ES] Total estimated timeline to functional MVP with real patients. Phase A is budgeted independently. Phase B is quoted after Phase A is complete — based on a locked, agreed scope.",
-        totalTime: "[ES] 6 – 7 Months"
+        totalDesc: "Tiempo total estimado para un MVP funcional con pacientes reales. La Fase A se presupuesta de forma independiente. La Fase B se cotiza una vez completada la Fase A — basándose en un alcance bloqueado y acordado.",
+        totalTime: "6 – 7 Meses"
     }
 };
 

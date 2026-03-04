@@ -46,44 +46,44 @@ const content = {
         ]
     },
     es: {
-        tag: "[ES] 01 — Our Understanding",
-        titlePart1: "[ES] What You Are",
-        titlePart2: "[ES] Really Solving",
+        tag: "01 — Nuestra Comprensión",
+        titlePart1: "Lo Que Realmente",
+        titlePart2: "Están Resolviendo",
         cards: [
             {
-                label: "[ES] Surface Problem",
-                heading: "[ES] What the brief says",
+                label: "Problema Visible",
+                heading: "Lo que dice el brief",
                 type: "list",
                 items: [
-                    "[ES] Visual House needs to scale vision therapy beyond in-person sessions",
-                    "[ES] Current software is licensed to a third party and locked to clinic computers",
-                    "[ES] Patient adherence is low and follow-up is informal and verbal",
-                    "[ES] Coverage is limited to Bogotá — no ability to serve other cities",
-                    "[ES] Virtual therapy patients carry significantly higher billing — this is your highest-value service line"
+                    "Visual House necesita escalar la terapia visual más allá de las sesiones presenciales",
+                    "El software actual es de Licenciamiento externo (Software de Terapia Visual) y solo puede utilizarse en los PC de la IPS",
+                    "La adherencia del paciente es baja y el seguimiento es informal y verbal",
+                    "La cobertura está limitada a Bogotá — sin capacidad de atender otras ciudades",
+                    "Los pacientes de Terapia Visual/Ortoptica Virtual — su paciente tipo: Particular — representan un ticket de facturación significativamente más alto. Esta es su línea de servicio de mayor valor"
                 ]
             },
             {
-                label: "[ES] The Real Problem",
-                heading: "[ES] What the brief means",
+                label: "El Problema Real",
+                heading: "Lo que el brief significa",
                 type: "insights",
                 items: [
-                    "[ES] Your highest-value service is trapped inside a physical building.",
-                    "[ES] Every patient who cannot do sessions at home is revenue you cannot capture. Every city outside Bogotá is a market you cannot reach.",
-                    "[ES] But this is not only about expansion. You want to offer a home therapy kit to patients who already walk through your door — turning every in-person visit into a gateway for ongoing virtual therapy.",
-                    "[ES] Two growth paths. Geographic reach and per-patient value. This platform is the infrastructure for both."
+                    "Su servicio de mayor valor está atrapado dentro de un edificio físico.",
+                    "Cada paciente que no puede realizar sesiones desde casa es ingreso que no pueden capturar. Cada ciudad fuera de Bogotá es un mercado al que no pueden llegar.",
+                    "Pero esto no se trata solo de expansión. Ustedes quieren ofrecer un Kit de Terapia Visual a los pacientes que ya acuden presencialmente a su sede — convirtiendo cada visita presencial en una puerta de entrada para Terapia Visual/Ortoptica Virtual continua.",
+                    "Dos caminos de crecimiento. Alcance geográfico y valor por paciente. Esta plataforma es la infraestructura para ambos."
                 ]
             },
             {
-                label: "[ES] The Stakes",
-                heading: "[ES] If this is not built right",
+                label: "Lo Que Está en Juego",
+                heading: "Si esto no se construye bien",
                 type: "list-with-note",
                 items: [
-                    "[ES] A poorly built exercise engine means children disengage — and 70% of your patients are children",
-                    "[ES] Adherence drops → clinical outcomes fail → the business case collapses",
-                    "[ES] Without this platform, you remain dependent on third-party software you do not own, cannot customize, and cannot scale",
-                    "[ES] In-person appointments remain overbooked with no relief"
+                    "Un motor de ejercicios mal construido significa que los niños pierden interés — y el 70% de sus pacientes son niños",
+                    "La adherencia cae → los resultados clínicos fallan → el caso de negocio colapsa",
+                    "Sin esta plataforma, siguen dependiendo de un Software de Terapia Visual de Licenciamiento externo que no poseen, no pueden personalizar y no pueden escalar",
+                    "La agenda presencial sigue saturada sin alivio"
                 ],
-                note: "[ES] This is not a website. This is a clinical product. It must be built like one."
+                note: "Esto no es un sitio web. Es un producto clínico. Debe construirse como tal."
             }
         ]
     }

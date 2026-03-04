@@ -11,11 +11,11 @@ const content = {
         ctaText: "Start the Conversation"
     },
     es: {
-        tag: "[ES] Ready When You Are",
-        titlePart1: "[ES] Let's Build Something",
-        titlePart2: "[ES] Worth Licensing.",
-        sub: "[ES] This proposal is the beginning of the conversation, not the end of it. We have understood the problem. We have mapped the system. What comes next is building it — together. A system that serves real patients and scales a real business.",
-        ctaText: "[ES] Start the Conversation"
+        tag: "Listos Cuando Ustedes Lo Estén",
+        titlePart1: "Construyamos Algo",
+        titlePart2: "Digno de Licenciar.",
+        sub: "Esta propuesta es el comienzo de la conversación, no el final. Hemos entendido el problema. Hemos mapeado el sistema. Lo que sigue es construirlo — juntos. Un sistema que sirva a pacientes reales y escale un negocio real.",
+        ctaText: "Iniciar la Conversación"
     }
 };
 

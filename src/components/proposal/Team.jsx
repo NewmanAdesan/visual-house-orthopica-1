@@ -25,21 +25,21 @@ const content = {
         ]
     },
     es: {
-        tag: "[ES] 07 — Team & Approach",
-        titlePart1: "[ES] Who We Are and",
-        titlePart2: "[ES] How We Work",
+        tag: "07 — Equipo y Enfoque",
+        titlePart1: "Quiénes Somos y",
+        titlePart2: "Cómo Trabajamos",
         members: [
             {
-                role: "[ES] Web Solutions Strategist & Frontend Lead",
+                role: "Estratega de Soluciones Web & Líder Frontend",
                 name: "[Your Name]",
-                desc: "[ES] Background in AI/ML foundations, frontend engineering, and business analysis. Does not build what he is told — diagnoses the real problem first, then designs and builds the solution. Approaches every project by understanding how the business actually operates before writing a line of code. Specializes in complex frontend systems, real-time rendering, and translating business requirements into technical architecture.",
-                skills: ["[ES] React", "[ES] HTML5 Canvas", "[ES] Node.js", "[ES] AI/ML", "[ES] Business Analysis"],
+                desc: "Experiencia en fundamentos de IA/ML, ingeniería frontend y análisis de negocios. No construye simplemente lo que se le pide — primero diagnostica el problema real, luego diseña y construye la solución. Aborda cada proyecto entendiendo cómo opera realmente el negocio antes de escribir una línea de código. Se especializa en sistemas frontend complejos, renderizado en tiempo real y en la traducción de requisitos de negocio en arquitectura técnica.",
+                skills: ["React", "HTML5 Canvas", "Node.js", "IA/ML", "Análisis de Negocios"],
                 isDark: false
             },
             {
-                role: "[ES] Project Lead & Business Development",
+                role: "Líder de Proyecto & Desarrollo de Negocios",
                 name: "[Friend's Name]",
-                desc: "[ES] Background and credentials to be completed by [Friend's Name].",
+                desc: "Amigo de la casa en Visual House. Entiende los objetivos de su clínica, su forma de trabajar y el impacto que buscan. Facilita que este proyecto no se quede en un intercambio técnico, sino que sume directamente al crecimiento del negocio. Punto de contacto principal, gestión estratégica y alineación de expectativas.",
                 skills: [],
                 isDark: true
             }

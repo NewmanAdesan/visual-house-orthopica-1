@@ -12,12 +12,12 @@ const content = {
         scrollHint: "Scroll to explore"
     },
     es: {
-        tag: "[ES] Visual House Ortoptica × [Your Team Name] — 2026",
-        titlePart1: "[ES] Your Therapy Works.",
-        titlePart2: "[ES] Now Let It Scale.",
-        sub: "[ES] We read your brief. Then we read between the lines. What follows is not a pitch — it is proof that we understand what you are actually building.",
-        cta: "[ES] See What We Found",
-        scrollHint: "[ES] Scroll to explore"
+        tag: "Visual House Ortoptica × [Your Team Name] — 2026",
+        titlePart1: "Su Terapia Funciona.",
+        titlePart2: "Ahora Déjela Escalar.",
+        sub: "Leímos su brief. Luego leímos entre líneas. Lo que sigue no es una propuesta comercial — es la prueba de que entendemos lo que realmente están construyendo.",
+        cta: "Ver Lo Que Encontramos",
+        scrollHint: "Desplácese para explorar"
     }
 };
 

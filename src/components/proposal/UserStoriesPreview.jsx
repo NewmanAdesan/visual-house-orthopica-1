@@ -27,26 +27,26 @@ const content = {
         ctaLinkText: "View Full User Stories & Acceptance Criteria"
     },
     es: {
-        tag: "[ES] 06 — User Stories & Acceptance Criteria",
-        titlePart1: "[ES] How Every Role",
-        titlePart2: "[ES] Interacts With The System",
-        sub: "[ES] A step-by-step walkthrough of how each user — patient, therapist, and administrator — experiences the platform from first login to daily use. Each action defined, each behavior specified.",
+        tag: "06 — Historias de Usuario y Criterios de Aceptación",
+        titlePart1: "Cómo Cada Rol",
+        titlePart2: "Interactúa con el Sistema",
+        sub: "Un recorrido paso a paso de cómo cada usuario — paciente, terapeuta y administrador — experimenta la plataforma desde el primer inicio de sesión hasta su uso diario. Cada acción definida, cada comportamiento especificado.",
         cards: [
             {
-                role: "[ES] The Patient",
-                flow: "[ES] Account created by the therapist after in-person assessment — the patient never self-registers. They log in and see one thing: today's session. How many exercises, what to do, start. They follow the program. The system records everything — completed, missed, time spent, date. For a child, there are no decisions to make. Just participation."
+                role: "El Paciente",
+                flow: "Cuenta creada por el terapeuta después de la valoración presencial — el paciente nunca se auto-registra. Inician sesión y ven una sola cosa: la sesión de hoy. Cuántos ejercicios, qué hacer, iniciar. Siguen el programa. El sistema registra todo — completado, omitido, tiempo invertido, fecha. Para un niño, no hay decisiones que tomar. Solo participación."
             },
             {
-                role: "[ES] The Therapist",
-                flow: "[ES] Logs in and immediately sees who needs attention — every patient listed with their diagnosis, program status, and a clear adherence indicator showing sessions completed vs assigned this week. Registers new patients with diagnosis and medical history. Builds personalized programs — selects exercises, configures every parameter, sets the schedule. Reviews individual patient progress over time. Adjusts, pauses, or completes programs based on the data. Exports reports filtered by patient, date, or their full patient list."
+                role: "El Terapeuta",
+                flow: "Inicia sesión y ve inmediatamente quién necesita atención — cada paciente listado con su diagnóstico, estado del programa y un indicador claro de adherencia que muestra las sesiones completadas versus las asignadas esta semana. Registra nuevos pacientes con diagnóstico e historia clínica. Construye programas personalizados — selecciona ejercicios, configura cada parámetro, establece el horario. Revisa el progreso individual del paciente a lo largo del tiempo. Ajusta, pausa o completa programas basándose en los datos. Exporta reportes filtrados por paciente, fecha o su lista completa de pacientes."
             },
             {
-                role: "[ES] The Administrator",
-                flow: "[ES] Global visibility — total patients, active programs, overall adherence, active therapists. Manages all user accounts. Pulls cross-system reports that span every therapist and every patient. Views the audit trail — a chronological record of who did what and when, for accountability and data protection compliance."
+                role: "El Administrador",
+                flow: "Visibilidad global — total de pacientes, programas activos, adherencia general, terapeutas activos. Gestiona todas las cuentas de usuario. Extrae reportes de todo el sistema que abarcan a cada terapeuta y cada paciente. Accede al historial de auditoría — un registro cronológico de quién hizo qué y cuándo, para responsabilidad y cumplimiento de protección de datos."
             }
         ],
-        ctaText: "[ES] Every user action, system behavior, and acceptance criterion is detailed in the accompanying document —",
-        ctaLinkText: "[ES] View Full User Stories & Acceptance Criteria"
+        ctaText: "Cada acción del usuario, comportamiento del sistema y criterio de aceptación se detalla en el documento adjunto —",
+        ctaLinkText: "Ver Historias de Usuario & Criterios de Aceptación Completos"
     }
 };
 

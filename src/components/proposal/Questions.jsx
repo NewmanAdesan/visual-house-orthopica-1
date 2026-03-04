@@ -30,27 +30,27 @@ const content = {
         ]
     },
     es: {
-        tag: "[ES] 04 — Critical Questions",
-        titlePart1: "[ES] What We Need",
-        titlePart2: "[ES] To Know",
-        sub: "[ES] Eight questions that protect this project from costly mid-build surprises. We ask them now so we never have to pause later.",
+        tag: "04 — Preguntas Críticas",
+        titlePart1: "Lo Que Necesitamos",
+        titlePart2: "Saber",
+        sub: "Ocho preguntas que protegen este proyecto de sorpresas costosas durante la construcción. Las hacemos ahora para no tener que pausar después.",
         groups: [
             {
-                title: "[ES] Before We Design",
+                title: "Antes de Diseñar",
                 items: [
-                    { n: "01", text: "[ES] What does a single vision therapy exercise look like in a real session today? Can we observe one or see a video? We cannot engineer the visual stimulus accurately without seeing it performed clinically." },
-                    { n: "02", text: "[ES] Do exercises need audio instructions — particularly for child patients running sessions at home without direct supervision?" },
-                    { n: "03", text: "[ES] What is the current third-party software your therapists use? Understanding what they are accustomed to will directly inform how we design the professional panel." },
-                    { n: "04", text: "[ES] Is there an existing domain, logo, or brand guidelines — colors, typography — that this platform must align with?" }
+                    { n: "01", text: "¿Cómo se ve un ejercicio de terapia visual en una sesión real hoy? ¿Podemos observar uno o ver un video? No podemos diseñar el estímulo visual con precisión sin verlo ejecutado clínicamente." },
+                    { n: "02", text: "¿Los ejercicios necesitan instrucciones de audio — particularmente para pacientes niños que realizan sesiones en casa sin supervisión directa?" },
+                    { n: "03", text: "¿Cuál es el software de terceros que sus terapeutas usan actualmente? Entender a lo que están acostumbrados informará directamente cómo diseñamos el panel profesional." },
+                    { n: "04", text: "¿Existe un dominio, logo o lineamientos de marca — colores, tipografía — con los que esta plataforma deba alinearse?" }
                 ]
             },
             {
-                title: "[ES] Before We Build",
+                title: "Antes de Construir",
                 items: [
-                    { n: "05", text: "[ES] Is there an existing patient database that needs to be migrated, or do all records start fresh in the new system?" },
-                    { n: "06", text: "[ES] Can you confirm Ley 1581 de 2012 as the applicable data protection regulation? Are there additional healthcare-specific compliance requirements we should account for?" },
-                    { n: "07", text: "[ES] What is the target go-live date for MVP with real patients? And what is the established budget range for this phase?" },
-                    { n: "08", text: "[ES] Who is the internal point of contact for clinical validation — who signs off that an exercise is implemented correctly from a therapeutic standpoint?" }
+                    { n: "05", text: "¿Existe una base de datos de pacientes que necesite migrarse, o todos los registros comienzan desde cero en el nuevo sistema?" },
+                    { n: "06", text: "¿Pueden confirmar la Ley 1581 de 2012 como la regulación aplicable de protección de datos? ¿Hay requisitos de cumplimiento adicionales específicos del sector salud que debamos contemplar?" },
+                    { n: "07", text: "¿Cuál es la fecha objetivo de lanzamiento del MVP con pacientes reales? ¿Y cuál es el rango de presupuesto establecido para esta fase?" },
+                    { n: "08", text: "¿Quién es el punto de contacto interno para validación clínica — quién aprueba que un ejercicio está implementado correctamente desde el punto de vista terapéutico?" }
                 ]
             }
         ]
