@@ -111,7 +111,9 @@ export default function Understanding() {
                         {card.type === 'list' && (
                             <ul>
                                 {card.items.map((item, i) => (
-                                    <li key={i}>{item}</li>
+                                    // if type === 'list-with-note' or 'insights' add style then we should instead render <li style={{ color: '#5a6a80' }} key={i}>{item}</li>
+                                    // <li key={i}>{item}</li>
+                                    card.type === 'list-with-note' || card.type === 'insights' ? <li style={{ color: '#5a6a80' }} key={i}>{item}</li> : <li key={i}>{item}</li>
                                 ))}
                             </ul>
                         )}
