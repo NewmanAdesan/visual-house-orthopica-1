@@ -1,0 +1,131 @@
+#story-arc {
+    background: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+}
+
+#story-arc .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+#story-arc .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    max-width: 600px;
+    margin-bottom: 24px;
+}
+
+#story-arc .section-sub {
+    font-size: 15px;
+    color: var(--grey-light);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 72px;
+}
+
+.arc-stages {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+}
+
+.arc-stage {
+    background: var(--navy-mid);
+    padding: 48px 44px;
+    position: relative;
+    transition: background 0.2s;
+}
+
+.arc-stage:hover {
+    background: var(--navy-light);
+}
+
+.arc-stage-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.arc-stage-name {
+    font-family: var(--serif);
+    font-size: 26px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.arc-stage p {
+    font-size: 14px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.arc-stage p strong {
+    color: var(--white);
+    font-weight: 500;
+}
+
+.arc-closing {
+    margin-top: 40px;
+    padding: 32px 48px;
+    background: var(--navy-mid);
+    border-left: 2px solid var(--teal);
+}
+
+.arc-closing p {
+    font-size: 15px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 700px;
+}
+
+.arc-closing p strong {
+    color: var(--white);
+    font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+    #story-arc {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .arc-stages {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 680px) {
+    #story-arc {
+        padding: 80px 24px;
+    }
+
+    .arc-stage {
+        padding: 36px 28px;
+    }
+
+    .arc-closing {
+        padding: 24px 28px;
+    }
+}
+
+@media (max-width: 400px) {
+    #story-arc {
+        padding: 60px 16px;
+    }
+
+    .arc-stage {
+        padding: 28px 20px;
+    }
+}

@@ -1,0 +1,129 @@
+#understanding {
+    background: var(--sand-light);
+    color: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+}
+
+#understanding .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+#understanding .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    max-width: 600px;
+    margin-bottom: 72px;
+}
+
+.understanding-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+}
+
+.u-card {
+    background: var(--white);
+    padding: 48px 40px;
+    position: relative;
+}
+
+.u-card:first-child {
+    background: var(--navy);
+    color: var(--white);
+}
+
+.u-card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+    display: block;
+}
+
+.u-card h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.u-card p,
+.u-card li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--grey);
+    font-weight: 300;
+}
+
+.u-card:first-child p,
+.u-card:first-child li {
+    color: var(--grey-light);
+}
+
+.u-card ul {
+    list-style: none;
+}
+
+.u-card ul li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.u-card:first-child ul li {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.u-card ul li:last-child {
+    border-bottom: none;
+}
+
+.u-card .insight-block {
+    margin-bottom: 20px;
+}
+
+.u-card .insight-block p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--grey);
+    font-weight: 300;
+}
+
+@media (max-width: 1024px) {
+    #understanding {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .understanding-grid {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+}
+
+@media (max-width: 680px) {
+    #understanding {
+        padding: 80px 24px;
+    }
+
+    .u-card {
+        padding: 36px 28px;
+    }
+}
+
+@media (max-width: 400px) {
+    #understanding {
+        padding: 60px 16px;
+    }
+
+    .u-card {
+        padding: 28px 20px;
+    }
+}

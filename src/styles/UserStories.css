@@ -1,0 +1,165 @@
+/* Shared CSS for User Stories role sections and story blocks */
+
+.role-section {
+    padding: 80px 60px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.role-section:nth-child(even) {
+    background: var(--white);
+}
+
+.role-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.role-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 42px);
+    line-height: 1.1;
+    margin-bottom: 16px;
+}
+
+.role-intro {
+    font-size: 14px;
+    color: #5a6a80;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 56px;
+}
+
+/* USER STORY CARDS */
+.story-block {
+    margin-bottom: 2px;
+    background: var(--sand-light);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.role-section:nth-child(even) .story-block {
+    background: var(--sand-light);
+}
+
+.story-header {
+    padding: 28px 36px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.story-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.15em;
+    min-width: 40px;
+    padding-top: 3px;
+}
+
+.story-statement {
+    font-size: 15px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.story-statement em {
+    font-style: normal;
+    color: var(--teal-dim);
+    font-weight: 400;
+}
+
+.story-details {
+    padding: 24px 36px 28px;
+    padding-left: 96px;
+}
+
+.criteria-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.criteria-list {
+    list-style: none;
+}
+
+.criteria-list li {
+    font-size: 13px;
+    color: #4a5a70;
+    line-height: 1.7;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-weight: 300;
+}
+
+.criteria-list li:last-child {
+    border-bottom: none;
+}
+
+.criteria-list li::before {
+    content: '✓';
+    color: var(--teal-dim);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-weight: 500;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1024px) {
+    .role-section {
+        padding: 60px 40px;
+    }
+
+    .story-details {
+        padding-left: 76px;
+    }
+}
+
+@media (max-width: 680px) {
+    .role-section {
+        padding: 48px 24px;
+    }
+
+    .story-header {
+        padding: 20px 24px;
+        gap: 14px;
+    }
+
+    .story-details {
+        padding: 20px 24px;
+        padding-left: 24px;
+    }
+
+    .story-num {
+        min-width: 32px;
+    }
+}
+
+@media (max-width: 400px) {
+    .role-section {
+        padding: 40px 16px;
+    }
+
+    .story-header {
+        padding: 16px 16px;
+    }
+
+    .story-details {
+        padding: 16px;
+    }
+}

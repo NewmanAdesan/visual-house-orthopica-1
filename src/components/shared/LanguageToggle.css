@@ -1,0 +1,22 @@
+.lang-toggle {
+    background: transparent;
+    border: 1px solid rgba(0, 201, 177, 0.3);
+    color: var(--teal);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 6px 12px;
+    cursor: none;
+    transition: all 0.2s;
+}
+
+.lang-toggle:hover {
+    background: rgba(0, 201, 177, 0.1);
+    border-color: var(--teal);
+}
+
+@media (max-width: 680px) {
+    .lang-toggle {
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,15 @@
+:root {
+  --navy: #09142A;
+  --navy-mid: #112040;
+  --navy-light: #1a3060;
+  --teal: #00C9B1;
+  --teal-dim: #00876f;
+  --sand: #F0E6D3;
+  --sand-light: #FAF6F0;
+  --white: #FFFFFF;
+  --grey: #8A9AB5;
+  --grey-light: #C8D4E8;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Sora', sans-serif;
+  --mono: 'DM Mono', monospace;
+}

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual House Ortoptica — User Stories & Acceptance Criteria</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #09142A;
+    --navy-mid: #112040;
+    --navy-light: #1a3060;
+    --teal: #00C9B1;
+    --teal-dim: #00876f;
+    --sand: #F0E6D3;
+    --sand-light: #FAF6F0;
+    --white: #FFFFFF;
+    --grey: #8A9AB5;
+    --grey-light: #C8D4E8;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Sora', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--sand-light);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--teal);
+    z-index: 1000;
+    transition: width 0.1s ease;
+    width: 0%;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,246,240,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--teal-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .nav-back {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s;
+  }
+  .nav-back:hover { gap: 12px; color: var(--navy); }
+
+  /* HEADER */
+  .page-header {
+    padding: 160px 60px 80px;
+    max-width: 700px;
+  }
+  .page-header .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: #5a6a80;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* TABLE OF CONTENTS */
+  .toc {
+    padding: 0 60px 80px;
+    max-width: 700px;
+  }
+  .toc-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .toc-list a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: padding-left 0.2s;
+  }
+  .toc-list a:hover { padding-left: 8px; }
+  .toc-list .toc-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.15em;
+    min-width: 24px;
+  }
+  .toc-list .toc-label {
+    font-size: 14px;
+    color: var(--navy);
+    font-weight: 400;
+  }
+
+  /* ROLE SECTIONS */
+  .role-section {
+    padding: 80px 60px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .role-section:nth-child(even) {
+    background: var(--white);
+  }
+  .role-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .role-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 42px);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .role-intro {
+    font-size: 14px;
+    color: #5a6a80;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 56px;
+  }
+
+  /* USER STORY CARDS */
+  .story-block {
+    margin-bottom: 2px;
+    background: var(--sand-light);
+    border: 1px solid rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .role-section:nth-child(even) .story-block {
+    background: var(--sand-light);
+  }
+  .story-header {
+    padding: 28px 36px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .story-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.15em;
+    min-width: 40px;
+    padding-top: 3px;
+  }
+  .story-statement {
+    font-size: 15px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  .story-statement em {
+    font-style: normal;
+    color: var(--teal-dim);
+    font-weight: 400;
+  }
+  .story-details {
+    padding: 24px 36px 28px;
+    padding-left: 96px;
+  }
+  .criteria-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .criteria-list {
+    list-style: none;
+  }
+  .criteria-list li {
+    font-size: 13px;
+    color: #4a5a70;
+    line-height: 1.7;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-weight: 300;
+  }
+  .criteria-list li:last-child { border-bottom: none; }
+  .criteria-list li::before {
+    content: '✓';
+    color: var(--teal-dim);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  .doc-footer {
+    background: var(--navy);
+    color: var(--white);
+    padding: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .doc-footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey);
+    letter-spacing: 0.1em;
+  }
+  .doc-footer a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s;
+  }
+  .doc-footer a:hover { gap: 14px; }
+
+  /* ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--sand-light); }
+  ::-webkit-scrollbar-thumb { background: var(--teal-dim); }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 40px; }
+    .page-header { padding: 140px 40px 60px; }
+    .toc { padding: 0 40px 60px; }
+    .role-section { padding: 60px 40px; }
+    .doc-footer { padding: 48px 40px; }
+    .story-details { padding-left: 76px; }
+  }
+
+  @media (max-width: 680px) {
+    nav { padding: 16px 24px; }
+    .page-header { padding: 120px 24px 48px; }
+    .toc { padding: 0 24px 48px; }
+    .role-section { padding: 48px 24px; }
+    .doc-footer { padding: 36px 24px; flex-direction: column; gap: 20px; text-align: center; }
+
+    .story-header { padding: 20px 24px; gap: 14px; }
+    .story-details { padding: 20px 24px; padding-left: 24px; }
+    .story-num { min-width: 32px; }
+  }
+
+  @media (max-width: 400px) {
+    .page-header { padding: 110px 16px 40px; }
+    .toc { padding: 0 16px 40px; }
+    .role-section { padding: 40px 16px; }
+    .story-header { padding: 16px 16px; }
+    .story-details { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+  <div class="nav-logo">User Stories & Acceptance Criteria</div>
+  <a href="proposal.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M13 8H3M8 3L3 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Back to Proposal
+  </a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="tag reveal">Visual House Ortoptica — Companion Document</div>
+  <h1 class="reveal">User Stories &<br>Acceptance Criteria</h1>
+  <p class="reveal">Every action a user can take in the system, and exactly how the system should respond. Written in plain language so that clinical staff, developers, and decision-makers are reading from the same page.</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ul class="toc-list">
+    <li><a href="#patient"><span class="toc-num">01</span><span class="toc-label">The Patient Journey</span></a></li>
+    <li><a href="#therapist"><span class="toc-num">02</span><span class="toc-label">The Therapist Journey</span></a></li>
+    <li><a href="#admin"><span class="toc-num">03</span><span class="toc-label">The Administrator Journey</span></a></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════ PATIENT ═══════════════════════ -->
+<div class="role-section" id="patient">
+  <div class="role-tag reveal">01 — Patient</div>
+  <div class="role-title reveal">The Patient Journey</div>
+  <p class="role-intro reveal">The patient does not self-register. Their account is created by the therapist after an in-person assessment. From the patient's perspective, the system should feel simple — log in, do the exercises, log out. No clinical decisions. No complexity. Especially for children, who make up 70% of the patient base.</p>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">P-01</span>
+      <div class="story-statement">As a <em>patient</em>, I receive my login credentials after my in-person assessment so that I can access my therapy program from home.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>The therapist creates the patient's account with name, age, diagnosis, and assigned professional</li>
+        <li>The patient receives login credentials — email and password or a generated access link</li>
+        <li>The patient can log in using these credentials from any PC with Chrome and internet access</li>
+        <li>If credentials are incorrect, a clear error message is shown without revealing which field is wrong (security)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">P-02</span>
+      <div class="story-statement">As a <em>patient</em>, I see my dashboard after logging in so that I know exactly what I need to do today.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Dashboard shows today's scheduled session — including the exercise names in the session</li>
+        <li>Dashboard shows the number of sessions completed this week vs how many are assigned (e.g. "3 of 5 sessions completed")</li>
+        <li>Dashboard shows a simple visual of overall progress — enough to feel encouraging, not clinical</li>
+        <li>If no session is scheduled for today, the dashboard clearly says so and shows the next scheduled session date</li>
+        <li>The interface is simple enough for a child to understand — no dropdowns, no configuration, no decisions required</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">P-03</span>
+      <div class="story-statement">As a <em>patient</em>, I start a therapy session and complete the exercises on screen so that I follow my treatment program from home.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Patient clicks a single "Start Session" button — no further setup required</li>
+        <li>Exercises load one by one in the order the therapist defined</li>
+        <li>Each exercise runs as a real-time interactive visual stimulus on a Canvas element</li>
+        <li>Exercise parameters (speed, size, duration, difficulty) match exactly what the therapist configured</li>
+        <li>The exercise renders smoothly with no visible lag or frame drops — clinical precision is required</li>
+        <li>When one exercise finishes, the next one begins automatically or with a simple "Next" prompt</li>
+        <li>When all exercises are complete, the session is marked as completed</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">P-04</span>
+      <div class="story-statement">As a <em>patient</em>, I can pause and resume a session so that I can take a break if needed without losing progress.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>A clearly visible "Pause" button is available during any exercise</li>
+        <li>Pausing stops the exercise immediately — the visual stimulus freezes or disappears</li>
+        <li>A "Resume" button appears — clicking it continues the exercise from where it was paused</li>
+        <li>If the patient closes the browser mid-session without completing, the session is marked as incomplete/missed</li>
+        <li>The system does not allow partial credit — a session is either completed in full or marked as missed</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">P-05</span>
+      <div class="story-statement">As a <em>patient</em>, I can view my session history so that I can see what I have completed and what I missed.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>History shows a list of all sessions — each with the date, whether it was completed or missed, and the time spent</li>
+        <li>Completed sessions are visually distinguished from missed sessions (color or icon)</li>
+        <li>The history is ordered by date, most recent first</li>
+        <li>The patient can only view their own data — no access to other patients' information</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ THERAPIST ═══════════════════════ -->
+<div class="role-section" id="therapist">
+  <div class="role-tag reveal">02 — Therapist</div>
+  <div class="role-title reveal">The Therapist Journey</div>
+  <p class="role-intro reveal">The therapist is the primary power user. They register patients, build treatment programs, monitor adherence, adjust parameters, and make clinical decisions. The system must give them clarity without overwhelming them — the data tells the story, the therapist makes the judgment.</p>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">T-01</span>
+      <div class="story-statement">As a <em>therapist</em>, I see my patient list with adherence indicators when I log in so that I immediately know who needs attention.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Dashboard shows a list of all patients assigned to this therapist</li>
+        <li>Each patient entry shows: name, diagnosis, program status (Active / Paused / Completed)</li>
+        <li>Each active patient shows an adherence indicator: sessions completed vs sessions assigned for the current week (e.g. "3 of 5")</li>
+        <li>Patients with low adherence (e.g. less than 50% for the current week) are visually flagged so the therapist can see at a glance who is falling behind</li>
+        <li>The list is sortable by name, status, or adherence</li>
+        <li>Clicking a patient name navigates to their individual detail page</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">T-02</span>
+      <div class="story-statement">As a <em>therapist</em>, I register a new patient in the system after their in-person assessment so that they can begin their home therapy program.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Therapist enters: patient name, age, diagnosis, and assigns themselves as the responsible professional</li>
+        <li>A basic medical history field is available for clinical notes — free text input</li>
+        <li>All required fields must be filled before the record can be saved</li>
+        <li>Upon saving, the patient's account is created and login credentials are generated</li>
+        <li>The patient record is encrypted and stored in compliance with Ley 1581 de 2012</li>
+        <li>The creation of the record is logged in the audit trail with the therapist's identity and timestamp</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">T-03</span>
+      <div class="story-statement">As a <em>therapist</em>, I create a personalized therapy program for a patient so that they have a structured treatment plan to follow at home.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Therapist selects which exercises to include from the four MVP types: Smooth Tracking, Saccades, Basic Vergences, Basic Accommodation</li>
+        <li>For each selected exercise, the therapist configures: speed, size, duration, and difficulty level</li>
+        <li>Therapist defines the order in which exercises appear within a session</li>
+        <li>Therapist sets the weekly frequency — how many sessions per week</li>
+        <li>Therapist sets the session duration</li>
+        <li>The program is immediately active and visible in the patient's dashboard once saved</li>
+        <li>Program creation is logged in the audit trail</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">T-04</span>
+      <div class="story-statement">As a <em>therapist</em>, I view a patient's detail page so that I can see their full clinical picture and make informed decisions about their treatment.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Detail page shows: patient name, age, diagnosis, medical history notes, and assigned professional</li>
+        <li>Shows the current therapy program with all its parameters — exercises, speed, size, duration, difficulty, weekly frequency</li>
+        <li>Shows the full session history: each session with date, completed or missed, and time spent</li>
+        <li>Shows adherence over time as a simple chart — the therapist can see trends, not just today's number</li>
+        <li>Shows the current program status: Active, Paused, or Completed</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">T-05</span>
+      <div class="story-statement">As a <em>therapist</em>, I adjust a patient's therapy program so that the treatment adapts to their progress or changing needs.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Therapist can change exercise parameters — speed, size, duration, difficulty — for any exercise in the program</li>
+        <li>Therapist can add or remove exercises from the program</li>
+        <li>Therapist can change the weekly frequency or session duration</li>
+        <li>Changes take effect immediately — the patient's next session reflects the updated program</li>
+        <li>Every change is logged in the audit trail with the therapist's identity, what was changed, and the timestamp</li>
+        <li>Previous program configurations are not deleted — the history is preserved</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">T-06</span>
+      <div class="story-statement">As a <em>therapist</em>, I change a patient's program status so that I can pause, resume, or complete their treatment as clinically appropriate.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li><strong>Active</strong> — the patient has scheduled sessions and the program is running. Sessions appear in their dashboard.</li>
+        <li><strong>Paused</strong> — the program is temporarily stopped. No sessions are scheduled. All data is preserved. The patient sees a clear message that their program is currently paused.</li>
+        <li><strong>Completed</strong> — the program has finished. The patient's record and all session history remain in the system permanently. Medical records are never deleted.</li>
+        <li>Status changes are logged in the audit trail</li>
+        <li>A paused program can be reactivated to Active. A completed program cannot be reactivated — a new program must be created if treatment resumes.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">T-07</span>
+      <div class="story-statement">As a <em>therapist</em>, I generate reports on my patients so that I can review performance and share information as needed.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Therapist can filter reports by: a specific patient, a date range, or their entire patient list</li>
+        <li>Reports show adherence data: sessions completed vs assigned over the selected period</li>
+        <li>Reports show session history: dates, completion status, time spent</li>
+        <li>Reports can be viewed on screen and exported as PDF or Excel</li>
+        <li>The therapist can only generate reports for patients assigned to them — not other therapists' patients</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ADMINISTRATOR ═══════════════════════ -->
+<div class="role-section" id="admin">
+  <div class="role-tag reveal">03 — Administrator</div>
+  <div class="role-title reveal">The Administrator Journey</div>
+  <p class="role-intro reveal">The administrator has global visibility and system-level control. They manage accounts, monitor overall performance, and maintain the audit trail. The admin does not interact with clinical data directly — their role is operational, not therapeutic.</p>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">A-01</span>
+      <div class="story-statement">As an <em>administrator</em>, I see a global overview when I log in so that I understand the health of the entire system at a glance.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Dashboard shows: total number of patients in the system</li>
+        <li>Total number of active therapy programs currently running</li>
+        <li>Overall adherence percentage across all patients — a single number that indicates system-wide patient engagement</li>
+        <li>Number of active therapists with assigned patients</li>
+        <li>These numbers update in real time or on page refresh</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">A-02</span>
+      <div class="story-statement">As an <em>administrator</em>, I manage user accounts so that the right people have the right access to the system.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Admin can create new therapist accounts with name, email, and role assignment</li>
+        <li>Admin can create new patient accounts (same process as therapist creation, but from the admin level)</li>
+        <li>Admin can edit user information — name, email, role</li>
+        <li>Admin can deactivate accounts — deactivated users cannot log in, but all their data is preserved in the system</li>
+        <li>Admin cannot permanently delete accounts or medical records — data preservation is enforced by the system</li>
+        <li>All account changes are logged in the audit trail</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">A-03</span>
+      <div class="story-statement">As an <em>administrator</em>, I manage system settings so that the platform operates according to our organizational needs.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Admin can configure default session parameters — default speed, size, duration, difficulty for new programs (therapists can override per patient)</li>
+        <li>Admin can manage system language settings</li>
+        <li>Admin can view backup status and confirm daily automated backups are running</li>
+        <li>Settings changes are logged in the audit trail</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">A-04</span>
+      <div class="story-statement">As an <em>administrator</em>, I generate global reports so that I can evaluate performance across the entire organization.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Admin can filter reports by: any patient, any therapist, date range, or the entire system</li>
+        <li>Reports include the same adherence and session data available to therapists — but across all therapists and all patients</li>
+        <li>Reports can be viewed on screen and exported as PDF or Excel</li>
+        <li>Admin reports are not limited to a single therapist's patient list — they span the whole organization</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-block reveal">
+    <div class="story-header">
+      <span class="story-num">A-05</span>
+      <div class="story-statement">As an <em>administrator</em>, I view the audit trail so that I can verify accountability and satisfy data protection compliance requirements.</div>
+    </div>
+    <div class="story-details">
+      <div class="criteria-title">Acceptance Criteria</div>
+      <ul class="criteria-list">
+        <li>Audit trail is a chronological log of significant actions: patient creation, program creation, program changes, status changes, account changes, settings changes</li>
+        <li>Each entry shows: who performed the action, what the action was, and when it happened (timestamp)</li>
+        <li>The audit trail is read-only — no user, including the admin, can edit or delete entries</li>
+        <li>The trail is searchable by user, action type, or date range</li>
+        <li>This log exists to answer the question "who did what and when" — a requirement for Ley 1581 de 2012 compliance</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <p>Visual House Ortoptica — Solution Proposal — Companion Document</p>
+  <a href="proposal.html">
+    Back to Proposal
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  // PROGRESS BAR
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
+  });
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), 60 * (Array.from(reveals).indexOf(e.target) % 5));
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

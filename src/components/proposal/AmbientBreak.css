@@ -1,0 +1,21 @@
+.ambient-break {
+    background: var(--navy);
+    min-height: auto;
+    height: 30vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.ambient-break canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 680px) {
+    .ambient-break {
+        height: 20vh;
+    }
+}

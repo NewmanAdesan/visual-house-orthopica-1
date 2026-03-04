@@ -1,0 +1,151 @@
+#observations {
+    background: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+}
+
+.obs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+}
+
+.obs-header .left .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.obs-header .left .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    max-width: 500px;
+}
+
+.obs-header .right {
+    font-size: 13px;
+    color: var(--grey);
+    max-width: 280px;
+    line-height: 1.7;
+    text-align: right;
+    font-weight: 300;
+}
+
+.obs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.obs-item {
+    background: var(--navy-mid);
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    transition: background 0.2s;
+    cursor: default;
+}
+
+.obs-item:hover {
+    background: var(--navy-light);
+}
+
+.obs-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    padding-top: 4px;
+}
+
+.obs-heading {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.obs-heading span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-style: normal;
+}
+
+.obs-body {
+    font-size: 14px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.obs-body strong {
+    color: var(--white);
+    font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+    #observations {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .obs-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+    }
+
+    .obs-header .right {
+        text-align: left;
+        max-width: 100%;
+    }
+
+    .obs-item {
+        grid-template-columns: 60px 1fr;
+    }
+
+    .obs-body {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 680px) {
+    #observations {
+        padding: 80px 24px;
+    }
+
+    .obs-item {
+        grid-template-columns: 1fr;
+        padding: 32px 28px;
+        gap: 16px;
+    }
+
+    .obs-num {
+        padding-top: 0;
+    }
+
+    .obs-body {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 400px) {
+    #observations {
+        padding: 60px 16px;
+    }
+
+    .obs-item {
+        padding: 24px 20px;
+    }
+}

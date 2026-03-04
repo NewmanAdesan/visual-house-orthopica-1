@@ -1,0 +1,34 @@
+.cursor {
+    width: 8px;
+    height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+    top: -4px;
+    left: -4px;
+}
+
+.cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(0, 201, 177, 0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.1s ease;
+    top: -16px;
+    left: -16px;
+}
+
+@media (max-width: 680px) {
+
+    .cursor,
+    .cursor-ring {
+        display: none;
+    }
+}
