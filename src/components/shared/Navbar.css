@@ -24,6 +24,7 @@ nav {
     gap: 36px;
     list-style: none;
     align-items: center;
+    text-align: center;
 }
 
 .nav-links a {
@@ -70,7 +71,7 @@ nav {
     }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 880px) {
     nav {
         padding: 16px 24px;
     }
