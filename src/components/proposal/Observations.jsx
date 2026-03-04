@@ -23,21 +23,21 @@ const content = {
             },
             {
                 num: "03",
-                label: "Data Security",
-                heading: "Clinical Data vs Gameplay Analytics",
-                body: "The system records two types of data: protected health information (PHI) like diagnosis and treatment plans, and real-time gameplay telemetry like reaction time over 500 frames. <strong>Mixing these in the same database table is an architectural disaster.</strong> We separate clinical records from high-frequency session telemetry from day one. This keeps the dashboard fast, the medical records secure, and the server costs low as your patient base scales."
+                label: "Compliance Risk",
+                heading: "Sensitive Health Data From Day One",
+                body: "Basic medical history means data protection compliance — including <strong>Ley 1581 de 2012</strong> (Colombian personal data protection) — is not a Phase 2 concern. Role-based authentication, encryption, audit trails, and daily backups must be architected into the foundation from day one, not bolted on later at higher cost. <strong>Compliance is not a phase. It is a foundation.</strong>"
             },
             {
                 num: "04",
-                label: "Hardware Variability",
-                heading: "The 'Screen Size' Trap",
-                body: "Vision therapy relies on exact spatial distances. A target moving 5cm across a 27-inch iMac is very different from a target moving 5cm across an iPad. <strong>Responsive design is not enough here.</strong> The system must physically calibrate to the screen it is running on. Without a physical calibration step before the first session, your 'exact' exercises will be distorted depending on whether the patient is using a tablet or a TV monitor."
+                label: "Strategic Intent",
+                heading: "\"Web PC Only, Chrome\" Is Clinically Intentional",
+                body: "This is not a technical limitation. This is a deliberate constraint that protects the precision of your exercise rendering. Visual therapy stimuli require <strong>consistent, predictable screen behavior</strong>. We will build for this constraint deliberately — not treat it as something to work around in a future phase."
             },
             {
                 num: "05",
-                label: "Offline Resilience",
-                heading: "Unstable Connections Cannot Interrupt Therapy",
-                body: "If a patient's internet drops for 10 seconds during an exercise, the session cannot crash. The exercise engine must run entirely on the client side (in the browser), caching the results locally, and syncing back to the server only when the connection is stable. <strong>Continuous gameplay, asynchronous syncing.</strong> This is the only way to guarantee therapy isn't interrupted by household wi-fi issues."
+                label: "Future Architecture",
+                heading: "The Licensing Ambition Changes How We Build Now",
+                body: "You mentioned future licensing to other healthcare providers and expansion to other countries. This has architectural implications now — even at MVP. A system built only for Visual House today may need costly restructuring to support multiple providers tomorrow. <strong>We raise this now so the architecture decision is made consciously — not discovered painfully after launch.</strong>"
             }
         ]
     },
@@ -61,21 +61,21 @@ const content = {
             },
             {
                 num: "03",
-                label: "[ES] Data Security",
-                heading: "[ES] Clinical Data vs Gameplay Analytics",
-                body: "[ES] The system records two types of data: protected health information (PHI) like diagnosis and treatment plans, and real-time gameplay telemetry like reaction time over 500 frames. <strong>Mixing these in the same database table is an architectural disaster.</strong> We separate clinical records from high-frequency session telemetry from day one. This keeps the dashboard fast, the medical records secure, and the server costs low as your patient base scales."
+                label: "[ES] Compliance Risk",
+                heading: "[ES] Sensitive Health Data From Day One",
+                body: "[ES] Basic medical history means data protection compliance — including <strong>Ley 1581 de 2012</strong> (Colombian personal data protection) — is not a Phase 2 concern. Role-based authentication, encryption, audit trails, and daily backups must be architected into the foundation from day one, not bolted on later at higher cost. <strong>Compliance is not a phase. It is a foundation.</strong>"
             },
             {
                 num: "04",
-                label: "[ES] Hardware Variability",
-                heading: "[ES] The 'Screen Size' Trap",
-                body: "[ES] Vision therapy relies on exact spatial distances. A target moving 5cm across a 27-inch iMac is very different from a target moving 5cm across an iPad. <strong>Responsive design is not enough here.</strong> The system must physically calibrate to the screen it is running on. Without a physical calibration step before the first session, your 'exact' exercises will be distorted depending on whether the patient is using a tablet or a TV monitor."
+                label: "[ES] Strategic Intent",
+                heading: "[ES] \"Web PC Only, Chrome\" Is Clinically Intentional",
+                body: "[ES] This is not a technical limitation. This is a deliberate constraint that protects the precision of your exercise rendering. Visual therapy stimuli require <strong>consistent, predictable screen behavior</strong>. We will build for this constraint deliberately — not treat it as something to work around in a future phase."
             },
             {
                 num: "05",
-                label: "[ES] Offline Resilience",
-                heading: "[ES] Unstable Connections Cannot Interrupt Therapy",
-                body: "[ES] If a patient's internet drops for 10 seconds during an exercise, the session cannot crash. The exercise engine must run entirely on the client side (in the browser), caching the results locally, and syncing back to the server only when the connection is stable. <strong>Continuous gameplay, asynchronous syncing.</strong> This is the only way to guarantee therapy isn't interrupted by household wi-fi issues."
+                label: "[ES] Future Architecture",
+                heading: "[ES] The Licensing Ambition Changes How We Build Now",
+                body: "[ES] You mentioned future licensing to other healthcare providers and expansion to other countries. This has architectural implications now — even at MVP. A system built only for Visual House today may need costly restructuring to support multiple providers tomorrow. <strong>We raise this now so the architecture decision is made consciously — not discovered painfully after launch.</strong>"
             }
         ]
     }

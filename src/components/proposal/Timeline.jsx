@@ -7,14 +7,28 @@ const content = {
         tag: "08 — Timeline & Phases",
         titlePart1: "A Realistic Path",
         titlePart2: "to MVP",
-        phases: [
+        phaseGroupA: {
+            title: "Phase A — Discovery & Design",
+            badge: "Separately Budgeted"
+        },
+        phaseDeliverables: {
+            title: "Phase A Deliverables",
+            text: "Complete UI/UX designs for all three user roles. Full user stories and acceptance criteria. Technical architecture specification. Exercise engine specification. Clinical observation documentation. These deliverables are yours regardless of what follows."
+        },
+        phaseGroupB: {
+            title: "Phase B — Development to Launch",
+            badge: "Budget Submitted After Phase A"
+        },
+        phasesA: [
             {
                 num: "Phase 00",
                 name: "Discovery & Design",
                 items: ["Observe real therapy sessions", "Document exercise behavior precisely", "Define design system", "Build full UI/UX for patient and therapist", "Clinical approval on interface"],
                 weeks: "Weeks 1–6",
                 label: "Foundation"
-            },
+            }
+        ],
+        phasesB: [
             {
                 num: "Phase 01",
                 name: "Clinical Core",
@@ -51,21 +65,35 @@ const content = {
                 label: "Live"
             }
         ],
-        totalDesc: "Total estimated timeline to functional MVP with real patients. The range depends on clinical observation access, design feedback cycles, and clinical sign-off timelines — factors that are collaborative, not one-sided.",
+        totalDesc: "Total estimated timeline to functional MVP with real patients. Phase A is budgeted independently. Phase B is quoted after Phase A is complete — based on a locked, agreed scope.",
         totalTime: "6 – 7 Months"
     },
     es: {
         tag: "[ES] 08 — Timeline & Phases",
         titlePart1: "[ES] A Realistic Path",
         titlePart2: "[ES] to MVP",
-        phases: [
+        phaseGroupA: {
+            title: "[ES] Phase A — Discovery & Design",
+            badge: "[ES] Separately Budgeted"
+        },
+        phaseDeliverables: {
+            title: "[ES] Phase A Deliverables",
+            text: "[ES] Complete UI/UX designs for all three user roles. Full user stories and acceptance criteria. Technical architecture specification. Exercise engine specification. Clinical observation documentation. These deliverables are yours regardless of what follows."
+        },
+        phaseGroupB: {
+            title: "[ES] Phase B — Development to Launch",
+            badge: "[ES] Budget Submitted After Phase A"
+        },
+        phasesA: [
             {
                 num: "[ES] Phase 00",
                 name: "[ES] Discovery & Design",
                 items: ["[ES] Observe real therapy sessions", "[ES] Document exercise behavior precisely", "[ES] Define design system", "[ES] Build full UI/UX for patient and therapist", "[ES] Clinical approval on interface"],
                 weeks: "[ES] Weeks 1–6",
                 label: "[ES] Foundation"
-            },
+            }
+        ],
+        phasesB: [
             {
                 num: "[ES] Phase 01",
                 name: "[ES] Clinical Core",
@@ -102,7 +130,7 @@ const content = {
                 label: "[ES] Live"
             }
         ],
-        totalDesc: "[ES] Total estimated timeline to functional MVP with real patients. The range depends on clinical observation access, design feedback cycles, and clinical sign-off timelines — factors that are collaborative, not one-sided.",
+        totalDesc: "[ES] Total estimated timeline to functional MVP with real patients. Phase A is budgeted independently. Phase B is quoted after Phase A is complete — based on a locked, agreed scope.",
         totalTime: "[ES] 6 – 7 Months"
     }
 };
@@ -110,6 +138,24 @@ const content = {
 export default function Timeline() {
     const { language } = useLanguage();
     const t = content[language];
+
+    const renderPhase = (phase, index, offset = 0) => (
+        <ScrollReveal key={phase.num} delay={((index + offset) % 4) * 80 + 160} className="phase">
+            <div className="phase-id">
+                <div className="phase-num">{phase.num}</div>
+                <div className="phase-name">{phase.name}</div>
+            </div>
+            <div className="phase-items">
+                {phase.items.map((item, i) => (
+                    <span className="phase-tag" key={i}>{item}</span>
+                ))}
+            </div>
+            <div className="phase-weeks">
+                <span className="wk">{phase.weeks}</span>
+                <span className="wk-label">{phase.label}</span>
+            </div>
+        </ScrollReveal>
+    );
 
     return (
         <section id="timeline">
@@ -121,26 +167,29 @@ export default function Timeline() {
             </ScrollReveal>
 
             <div className="phases">
-                {t.phases.map((phase, index) => (
-                    <ScrollReveal key={index} delay={(index % 4) * 80 + 160} className="phase">
-                        <div className="phase-id">
-                            <div className="phase-num">{phase.num}</div>
-                            <div className="phase-name">{phase.name}</div>
-                        </div>
-                        <div className="phase-items">
-                            {phase.items.map((item, i) => (
-                                <span className="phase-tag" key={i}>{item}</span>
-                            ))}
-                        </div>
-                        <div className="phase-weeks">
-                            <span className="wk">{phase.weeks}</span>
-                            <span className="wk-label">{phase.label}</span>
-                        </div>
-                    </ScrollReveal>
-                ))}
+                {/* PHASE A */}
+                <ScrollReveal delay={160} className="phase-group-label">
+                    <div className="pgl-title">{t.phaseGroupA.title}</div>
+                    <div className="pgl-badge">{t.phaseGroupA.badge}</div>
+                </ScrollReveal>
+
+                {t.phasesA.map((phase, index) => renderPhase(phase, index, 1))}
+
+                <ScrollReveal delay={320} className="phase-deliverables">
+                    <div className="pd-title">{t.phaseDeliverables.title}</div>
+                    <p>{t.phaseDeliverables.text}</p>
+                </ScrollReveal>
+
+                {/* PHASE B */}
+                <ScrollReveal delay={400} className="phase-group-label">
+                    <div className="pgl-title">{t.phaseGroupB.title}</div>
+                    <div className="pgl-badge">{t.phaseGroupB.badge}</div>
+                </ScrollReveal>
+
+                {t.phasesB.map((phase, index) => renderPhase(phase, index, 6))}
             </div>
 
-            <ScrollReveal delay={300} className="timeline-total">
+            <ScrollReveal delay={880} className="timeline-total">
                 <p>{t.totalDesc}</p>
                 <strong>{t.totalTime}</strong>
             </ScrollReveal>

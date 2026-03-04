@@ -10,9 +10,10 @@ import USAdmin from '../components/user-stories/USAdmin';
 import USFooter from '../components/user-stories/USFooter';
 
 export default function UserStoriesPage() {
-    // Ensure we start at the top on loaded
     useEffect(() => {
         window.scrollTo(0, 0);
+        document.body.classList.add('light-mode');
+        return () => document.body.classList.remove('light-mode');
     }, []);
 
     return (
@@ -21,9 +22,11 @@ export default function UserStoriesPage() {
             <ProgressBar />
 
             <USHeader />
-            <USPatient />
-            <USTherapist />
-            <USAdmin />
+            <div className="role-sections-container">
+                <USPatient />
+                <USTherapist />
+                <USAdmin />
+            </div>
             <USFooter />
         </div>
     );

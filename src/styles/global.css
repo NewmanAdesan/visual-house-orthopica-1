@@ -18,6 +18,11 @@ body {
     cursor: none;
 }
 
+body.light-mode {
+    background: var(--sand-light);
+    color: var(--navy);
+}
+
 /* ANIMATIONS */
 @keyframes fadeUp {
     from {
@@ -53,6 +58,10 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: var(--teal-dim);
+}
+
+body.light-mode::-webkit-scrollbar-track {
+    background: var(--sand-light);
 }
 
 /* MOBILE — up to 680px */

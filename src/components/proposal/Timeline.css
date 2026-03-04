@@ -119,6 +119,55 @@
     white-space: nowrap;
 }
 
+/* Phase Group Labels */
+.phase-group-label {
+    padding: 20px 48px;
+    background: var(--teal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.phase-group-label .pgl-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--navy);
+}
+
+.phase-group-label .pgl-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: rgba(9, 20, 42, 0.12);
+    padding: 5px 14px;
+}
+
+.phase-deliverables {
+    padding: 28px 48px;
+    background: var(--navy-mid);
+    border-left: 2px solid var(--teal);
+    margin-bottom: 40px;
+}
+
+.phase-deliverables .pd-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.phase-deliverables p {
+    font-size: 13px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+}
+
 @media (max-width: 1024px) {
     #timeline {
         padding-left: 40px;
@@ -129,6 +178,14 @@
         grid-template-columns: 180px 1fr 140px;
         gap: 24px;
         padding: 28px 36px;
+    }
+
+    .phase-group-label {
+        padding: 18px 36px;
+    }
+
+    .phase-deliverables {
+        padding: 24px 36px;
     }
 
     .timeline-total {
@@ -160,6 +217,17 @@
     .phase-items {
         gap: 6px;
     }
+
+    .phase-group-label {
+        padding: 16px 28px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .phase-deliverables {
+        padding: 20px 28px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -173,5 +241,13 @@
 
     .timeline-total {
         padding: 24px 20px;
+    }
+
+    .phase-group-label {
+        padding: 14px 20px;
+    }
+
+    .phase-deliverables {
+        padding: 16px 20px;
     }
 }

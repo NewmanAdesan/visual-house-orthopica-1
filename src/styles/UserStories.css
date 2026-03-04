@@ -1,4 +1,9 @@
 /* Shared CSS for User Stories role sections and story blocks */
+.user-stories-layout {
+    background: var(--sand-light);
+    color: var(--navy);
+    min-height: 100vh;
+}
 
 .role-section {
     padding: 80px 60px;

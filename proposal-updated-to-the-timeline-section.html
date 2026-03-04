@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual House Ortoptica — Solution Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #09142A;
+    --navy-mid: #112040;
+    --navy-light: #1a3060;
+    --teal: #00C9B1;
+    --teal-dim: #00876f;
+    --sand: #F0E6D3;
+    --sand-light: #FAF6F0;
+    --white: #FFFFFF;
+    --grey: #8A9AB5;
+    --grey-light: #C8D4E8;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Sora', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR — hidden on touch devices */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(0,201,177,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.1s ease;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--teal);
+    z-index: 1000;
+    transition: width 0.1s ease;
+    width: 0%;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(9,20,42,0.95), transparent);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px;
+    color: var(--grey);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* MOBILE NAV TOGGLE */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 101;
+  }
+  .nav-toggle span {
+    width: 24px;
+    height: 1.5px;
+    background: var(--teal);
+    transition: all 0.3s ease;
+  }
+
+  /* SECTIONS */
+  section {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 60px;
+    position: relative;
+  }
+  #heroCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.35;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(42px, 7vw, 96px);
+    line-height: 1.0;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--teal);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--grey-light);
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 52px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.9s forwards;
+    transition: gap 0.2s;
+  }
+  .hero-cta:hover { gap: 20px; }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grey);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+
+  /* ── UNDERSTANDING ── */
+  #understanding {
+    background: var(--sand-light);
+    color: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+  }
+  #understanding .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  #understanding .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    max-width: 600px;
+    margin-bottom: 72px;
+  }
+  .understanding-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+  }
+  .u-card {
+    background: var(--white);
+    padding: 48px 40px;
+    position: relative;
+  }
+  .u-card:first-child { background: var(--navy); color: var(--white); }
+  .u-card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .u-card h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .u-card p, .u-card li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--grey);
+    font-weight: 300;
+  }
+  .u-card:first-child p, .u-card:first-child li { color: var(--grey-light); }
+  .u-card ul { list-style: none; }
+  .u-card ul li { padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .u-card:first-child ul li { border-bottom-color: rgba(255,255,255,0.08); }
+  .u-card ul li:last-child { border-bottom: none; }
+  .u-card .insight-block { margin-bottom: 20px; }
+  .u-card .insight-block p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--grey);
+    font-weight: 300;
+  }
+
+  /* ── STORY ARC ── */
+  #story-arc {
+    background: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+  }
+  #story-arc .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  #story-arc .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    max-width: 600px;
+    margin-bottom: 24px;
+  }
+  #story-arc .section-sub {
+    font-size: 15px;
+    color: var(--grey-light);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 72px;
+  }
+  .arc-stages {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .arc-stage {
+    background: var(--navy-mid);
+    padding: 48px 44px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .arc-stage:hover { background: var(--navy-light); }
+  .arc-stage-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .arc-stage-name {
+    font-family: var(--serif);
+    font-size: 26px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .arc-stage p {
+    font-size: 14px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .arc-stage p strong { color: var(--white); font-weight: 500; }
+  .arc-closing {
+    margin-top: 40px;
+    padding: 32px 48px;
+    background: var(--navy-mid);
+    border-left: 2px solid var(--teal);
+  }
+  .arc-closing p {
+    font-size: 15px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 700px;
+  }
+  .arc-closing p strong { color: var(--white); font-weight: 500; }
+
+  /* ── EXERCISE DEMO ── */
+  .exercise-demo {
+    background: var(--navy);
+    min-height: auto;
+    height: 45vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .exercise-demo canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+  .exercise-demo .demo-label {
+    position: absolute;
+    bottom: 32px;
+    right: 48px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(0,201,177,0.5);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ── AMBIENT VISUAL BREAK ── */
+  .ambient-break {
+    background: var(--navy);
+    min-height: auto;
+    height: 30vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .ambient-break canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* ── OBSERVATIONS ── */
+  #observations {
+    background: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+  }
+  .obs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+  .obs-header .left .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .obs-header .left .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    max-width: 500px;
+  }
+  .obs-header .right {
+    font-size: 13px;
+    color: var(--grey);
+    max-width: 280px;
+    line-height: 1.7;
+    text-align: right;
+    font-weight: 300;
+  }
+  .obs-list { display: flex; flex-direction: column; gap: 2px; }
+  .obs-item {
+    background: var(--navy-mid);
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .obs-item:hover { background: var(--navy-light); }
+  .obs-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    padding-top: 4px;
+  }
+  .obs-heading {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+  }
+  .obs-heading span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-style: normal;
+  }
+  .obs-body {
+    font-size: 14px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .obs-body strong { color: var(--white); font-weight: 500; }
+
+  /* ── QUESTIONS ── */
+  #questions {
+    background: var(--sand);
+    color: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+  }
+  #questions .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  #questions .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  #questions .section-sub {
+    font-size: 15px;
+    color: #5a6a80;
+    font-weight: 300;
+    margin-bottom: 72px;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .q-groups {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .q-group { background: var(--white); padding: 40px; }
+  .q-group-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-dim);
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .q-item {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .q-item:last-child { border-bottom: none; }
+  .q-n {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    min-width: 20px;
+    padding-top: 2px;
+  }
+  .q-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #2a3a50;
+    font-weight: 400;
+  }
+
+  /* ── ARCHITECTURE ── */
+  #architecture {
+    background: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+  }
+  #architecture .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  #architecture .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    margin-bottom: 72px;
+    max-width: 600px;
+  }
+  .arch-layers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 60px;
+  }
+  .arch-layer {
+    background: var(--navy-mid);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arch-layer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .arch-layer:hover::before { transform: scaleX(1); }
+  .arch-layer-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .arch-layer h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .arch-layer .arch-sub {
+    font-size: 11px;
+    color: var(--teal);
+    font-family: var(--mono);
+    margin-bottom: 28px;
+    letter-spacing: 0.1em;
+  }
+  .arch-items { list-style: none; }
+  .arch-items li {
+    font-size: 13px;
+    color: var(--grey-light);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .arch-items li:last-child { border-bottom: none; }
+  .arch-items li::before {
+    content: '→';
+    color: var(--teal);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .arch-tech {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grey);
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: 0.08em;
+  }
+  .arch-tech span { color: var(--teal); }
+
+  .mvp-note {
+    background: var(--navy-mid);
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .mvp-col h4 {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+  .mvp-col ul { list-style: none; }
+  .mvp-col ul li {
+    font-size: 13px;
+    color: var(--grey-light);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    gap: 10px;
+    font-weight: 300;
+  }
+  .mvp-col ul li:last-child { border-bottom: none; }
+  .mvp-col ul li .tick { color: var(--teal); }
+  .mvp-col ul li .cross { color: #ff6b6b; }
+
+  /* ── USER STORIES PLACEHOLDER ── */
+  #user-stories {
+    background: var(--sand-light);
+    color: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+  }
+  #user-stories .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  #user-stories .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    max-width: 600px;
+  }
+  #user-stories .section-sub {
+    font-size: 15px;
+    color: #5a6a80;
+    font-weight: 300;
+    margin-bottom: 72px;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .stories-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 40px;
+  }
+  .story-card {
+    background: var(--white);
+    padding: 44px 36px;
+  }
+  .story-card:nth-child(2) {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .story-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .story-card:nth-child(2) .story-role {
+    color: var(--teal);
+    border-bottom-color: rgba(255,255,255,0.08);
+  }
+  .story-flow {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #4a5a70;
+    font-weight: 300;
+  }
+  .story-card:nth-child(2) .story-flow {
+    color: var(--grey-light);
+  }
+  .stories-cta {
+    background: var(--navy);
+    padding: 36px 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+  }
+  .stories-cta p {
+    font-size: 13px;
+    color: var(--grey-light);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .story-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: gap 0.2s;
+  }
+  .story-link:hover { gap: 18px; }
+
+  /* ── TEAM ── */
+  #team {
+    background: var(--sand-light);
+    color: var(--navy);
+    padding: 0 60px 120px 60px;
+    min-height: auto;
+  }
+  #team .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  #team .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    margin-bottom: 72px;
+    max-width: 600px;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .team-card {
+    background: var(--white);
+    padding: 48px 44px;
+  }
+  .team-card.dark {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .team-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .team-card.dark .team-role { color: var(--teal); }
+  .team-name {
+    font-family: var(--serif);
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .team-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #4a5a70;
+    font-weight: 300;
+  }
+  .team-card.dark .team-desc { color: var(--grey-light); }
+  .team-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 5px 12px;
+    background: rgba(0,201,177,0.1);
+    color: var(--teal-dim);
+    border: 1px solid rgba(0,201,177,0.2);
+  }
+  .team-card.dark .skill-tag {
+    color: var(--teal);
+    background: rgba(0,201,177,0.08);
+    border-color: rgba(0,201,177,0.2);
+  }
+
+  /* ── TIMELINE ── */
+  #timeline {
+    background: var(--navy);
+    padding: 120px 60px;
+    min-height: auto;
+  }
+  #timeline .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  #timeline .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 58px);
+    line-height: 1.1;
+    margin-bottom: 72px;
+    max-width: 600px;
+  }
+  .phases { display: flex; flex-direction: column; gap: 2px; }
+  .phase {
+    background: var(--navy-mid);
+    padding: 32px 48px;
+    display: grid;
+    grid-template-columns: 220px 1fr 180px;
+    gap: 40px;
+    align-items: center;
+    transition: background 0.2s;
+  }
+  .phase:hover { background: var(--navy-light); }
+  .phase-id {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .phase-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+  }
+  .phase-name {
+    font-family: var(--serif);
+    font-size: 20px;
+  }
+  .phase-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .phase-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.06);
+    color: var(--grey-light);
+    letter-spacing: 0.05em;
+  }
+  .phase-weeks { text-align: right; }
+  .phase-weeks .wk {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--teal);
+    display: block;
+  }
+  .phase-weeks .wk-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grey);
+    letter-spacing: 0.1em;
+  }
+  .timeline-total {
+    margin-top: 40px;
+    padding: 32px 48px;
+    background: var(--teal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+  }
+  .timeline-total p {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  .timeline-total strong {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+
+  /* Phase Group Labels */
+  .phase-group-label {
+    padding: 20px 48px;
+    background: var(--teal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+  .phase-group-label .pgl-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--navy);
+  }
+  .phase-group-label .pgl-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: rgba(9,20,42,0.12);
+    padding: 5px 14px;
+  }
+  .phase-deliverables {
+    padding: 28px 48px;
+    background: var(--navy-mid);
+    border-left: 2px solid var(--teal);
+    margin-bottom: 40px;
+  }
+  .phase-deliverables .pd-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .phase-deliverables p {
+    font-size: 13px;
+    color: var(--grey-light);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── CLOSING ── */
+  #closing {
+    background: var(--navy-mid);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 60px;
+    min-height: 60vh;
+    position: relative;
+    overflow: hidden;
+  }
+  #closingCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.15;
+  }
+  .closing-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .closing-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 72px);
+    line-height: 1.1;
+    max-width: 700px;
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .closing-title em { font-style: italic; color: var(--teal); }
+  .closing-sub {
+    font-size: 15px;
+    color: var(--grey-light);
+    max-width: 520px;
+    line-height: 1.7;
+    font-weight: 300;
+    position: relative;
+    margin-bottom: 52px;
+  }
+  .closing-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 36px;
+    background: var(--teal);
+    color: var(--navy);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .closing-cta:hover {
+    background: var(--white);
+    gap: 22px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--teal-dim); }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+     ═══════════════════════════════════════════ */
+
+  /* TABLET — up to 1024px */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 40px; }
+    .nav-links { gap: 24px; }
+    .nav-links a { font-size: 11px; }
+
+    #hero { padding: 0 40px; }
+    .hero-scroll-hint { left: 40px; }
+
+    #understanding,
+    #story-arc,
+    #observations,
+    #questions,
+    #architecture,
+    #user-stories,
+    #timeline { padding-left: 40px; padding-right: 40px; }
+    #team { padding-left: 40px; padding-right: 40px; }
+    #closing { padding-left: 40px; padding-right: 40px; }
+
+    .understanding-grid { grid-template-columns: 1fr; gap: 2px; }
+
+    .arc-stages { grid-template-columns: 1fr; }
+
+    .obs-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .obs-header .right { text-align: left; max-width: 100%; }
+    .obs-item { grid-template-columns: 60px 1fr; }
+    .obs-body { grid-column: 2; }
+
+    .q-groups { grid-template-columns: 1fr; }
+
+    .arch-layers { grid-template-columns: 1fr; }
+    .mvp-note { grid-template-columns: 1fr; gap: 40px; }
+
+    .team-grid { grid-template-columns: 1fr; }
+
+    .stories-preview { grid-template-columns: 1fr; }
+    .stories-cta { flex-direction: column; text-align: center; gap: 20px; }
+
+    .phase { grid-template-columns: 180px 1fr 140px; gap: 24px; padding: 28px 36px; }
+    .phase-group-label { padding: 18px 36px; }
+    .phase-deliverables { padding: 24px 36px; }
+
+    .timeline-total { flex-direction: column; text-align: center; gap: 16px; }
+    .timeline-total p { max-width: 100%; }
+  }
+
+  /* MOBILE — up to 680px */
+  @media (max-width: 680px) {
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+
+    nav { padding: 16px 24px; }
+    .nav-links { 
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,20,42,0.98);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 14px; letter-spacing: 0.15em; }
+    .nav-toggle { display: flex; }
+
+    #hero { padding: 0 24px; min-height: 90vh; }
+    .hero-tag { font-size: 10px; margin-bottom: 24px; }
+    .hero-sub { font-size: 14px; margin-top: 20px; }
+    .hero-cta { margin-top: 36px; }
+    .hero-scroll-hint { left: 24px; bottom: 28px; }
+
+    #understanding,
+    #story-arc,
+    #observations,
+    #questions,
+    #architecture,
+    #user-stories,
+    #timeline { padding: 80px 24px; }
+    #team { padding: 0 24px 80px 24px; }
+    #closing { padding: 80px 24px; }
+
+    .u-card { padding: 36px 28px; }
+    .arc-stage { padding: 36px 28px; }
+    .arc-closing { padding: 24px 28px; }
+
+    .obs-item { 
+      grid-template-columns: 1fr;
+      padding: 32px 28px;
+      gap: 16px;
+    }
+    .obs-num { padding-top: 0; }
+    .obs-body { grid-column: auto; }
+
+    .q-group { padding: 28px 24px; }
+
+    .arch-layer { padding: 36px 28px; }
+
+    .phase {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 24px 28px;
+    }
+    .phase-weeks { text-align: left; }
+    .phase-items { gap: 6px; }
+    .phase-group-label { padding: 16px 28px; flex-direction: column; gap: 10px; align-items: flex-start; }
+    .phase-deliverables { padding: 20px 28px; }
+
+    .team-card { padding: 36px 28px; }
+
+    .exercise-demo { height: 35vh; }
+    .exercise-demo .demo-label { 
+      bottom: 20px; 
+      right: 24px; 
+      font-size: 9px; 
+    }
+
+    .ambient-break { height: 20vh; }
+
+    .stories-placeholder { padding: 40px 24px; }
+
+    .closing-sub { font-size: 14px; }
+    .closing-cta { padding: 16px 28px; font-size: 11px; }
+  }
+
+  /* SMALL MOBILE — up to 400px */
+  @media (max-width: 400px) {
+    #hero { padding: 0 16px; }
+    #understanding,
+    #story-arc,
+    #observations,
+    #questions,
+    #architecture,
+    #user-stories,
+    #timeline { padding: 60px 16px; }
+    #team { padding: 0 16px 60px 16px; }
+    #closing { padding: 60px 16px; }
+
+    .u-card { padding: 28px 20px; }
+    .arc-stage { padding: 28px 20px; }
+    .obs-item { padding: 24px 20px; }
+    .q-group { padding: 24px 20px; }
+    .arch-layer { padding: 28px 20px; }
+    .phase { padding: 20px; }
+    .team-card { padding: 28px 20px; }
+    .mvp-note { padding: 28px 20px; }
+    .timeline-total { padding: 24px 20px; }
+    .phase-group-label { padding: 14px 20px; }
+    .phase-deliverables { padding: 16px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+  <div class="nav-logo">Solution Proposal</div>
+  <div class="nav-toggle" id="navToggle" onclick="document.getElementById('navLinks').classList.toggle('open'); this.classList.toggle('active');">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#understanding" onclick="document.getElementById('navLinks').classList.remove('open')">Understanding</a></li>
+    <li><a href="#story-arc" onclick="document.getElementById('navLinks').classList.remove('open')">Journey</a></li>
+    <li><a href="#observations" onclick="document.getElementById('navLinks').classList.remove('open')">Observations</a></li>
+    <li><a href="#architecture" onclick="document.getElementById('navLinks').classList.remove('open')">Architecture</a></li>
+    <li><a href="#user-stories" onclick="document.getElementById('navLinks').classList.remove('open')">User Stories</a></li>
+    <li><a href="#timeline" onclick="document.getElementById('navLinks').classList.remove('open')">Timeline</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-tag">Visual House Ortoptica × [Your Team Name] — 2026</div>
+  <h1 class="hero-title">Your Therapy Works.<br><em>Now Let It Scale.</em></h1>
+  <p class="hero-sub">We read your brief. Then we read between the lines. What follows is not a pitch — it is proof that we understand what you are actually building.</p>
+  <a href="#understanding" class="hero-cta">
+    See What We Found
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M10 3v14M3 10l7 7 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </a>
+  <div class="hero-scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- ═══════════════════════ UNDERSTANDING ═══════════════════════ -->
+<section id="understanding">
+  <div class="section-tag reveal">01 — Our Understanding</div>
+  <h2 class="section-title reveal">What You Are<br>Really Solving</h2>
+  <div class="understanding-grid">
+    <div class="u-card reveal">
+      <span class="u-card-num">Surface Problem</span>
+      <h3>What the brief says</h3>
+      <ul>
+        <li>Visual House needs to scale vision therapy beyond in-person sessions</li>
+        <li>Current software is licensed to a third party and locked to clinic computers</li>
+        <li>Patient adherence is low and follow-up is informal and verbal</li>
+        <li>Coverage is limited to Bogotá — no ability to serve other cities</li>
+        <li>Virtual therapy patients carry significantly higher billing — this is your highest-value service line</li>
+      </ul>
+    </div>
+    <div class="u-card reveal">
+      <span class="u-card-num">The Real Problem</span>
+      <h3>What the brief means</h3>
+      <div class="insight-block">
+        <p>Your highest-value service is trapped inside a physical building.</p>
+      </div>
+      <div class="insight-block">
+        <p>Every patient who cannot do sessions at home is revenue you cannot capture. Every city outside Bogotá is a market you cannot reach.</p>
+      </div>
+      <div class="insight-block">
+        <p>But this is not only about expansion. You want to offer a home therapy kit to patients who already walk through your door — turning every in-person visit into a gateway for ongoing virtual therapy.</p>
+      </div>
+      <div class="insight-block">
+        <p style="font-weight: 500; color: var(--navy);">Two growth paths. Geographic reach and per-patient value. This platform is the infrastructure for both.</p>
+      </div>
+    </div>
+    <div class="u-card reveal">
+      <span class="u-card-num">The Stakes</span>
+      <h3>If this is not built right</h3>
+      <ul>
+        <li>A poorly built exercise engine means children disengage — and 70% of your patients are children</li>
+        <li>Adherence drops → clinical outcomes fail → the business case collapses</li>
+        <li>Without this platform, you remain dependent on third-party software you do not own, cannot customize, and cannot scale</li>
+        <li>In-person appointments remain overbooked with no relief</li>
+      </ul>
+      <p style="margin-top:16px; font-weight:500; color: var(--navy);">This is not a website. This is a clinical product. It must be built like one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ STORY ARC ═══════════════════════ -->
+<section id="story-arc">
+  <div class="section-tag reveal">02 — The Journey</div>
+  <h2 class="section-title reveal">From Clinic to Home<br>And Back</h2>
+  <p class="section-sub reveal">This is how we see your system working — not as a list of features, but as a living experience that connects the clinic to the patient's home and brings the data back to the therapist.</p>
+  <div class="arc-stages">
+    <div class="arc-stage reveal">
+      <div class="arc-stage-num">Stage 01</div>
+      <div class="arc-stage-name">Assessment</div>
+      <p>The patient visits Visual House in person. The orthoptist evaluates, diagnoses, and registers the patient in the system with their condition — binocular coordination, tracking deficiency, convergence insufficiency. <strong>This step stays human.</strong> The platform does not diagnose. It receives the diagnosis, and everything that follows is built on it.</p>
+    </div>
+    <div class="arc-stage reveal">
+      <div class="arc-stage-num">Stage 02</div>
+      <div class="arc-stage-name">Prescription</div>
+      <p>The therapist opens the platform and builds a personalized therapy program for this patient. Which exercises, what parameters — speed, size, difficulty — what schedule, how many sessions per week, how long each session. <strong>The treatment plan is clinical. The delivery mechanism is digital.</strong></p>
+    </div>
+    <div class="arc-stage reveal">
+      <div class="arc-stage-num">Stage 03</div>
+      <div class="arc-stage-name">Execution</div>
+      <p>The patient goes home, logs in, and sees today's session. They follow the program. The exercises run on screen. The system records everything — what was completed, what was missed, how long it took, when it happened. <strong>For children, the experience must be simple enough to follow with minimal parent help.</strong> The system does not require decisions from the patient — just participation.</p>
+    </div>
+    <div class="arc-stage reveal">
+      <div class="arc-stage-num">Stage 04</div>
+      <div class="arc-stage-name">Insight</div>
+      <p>The therapist opens their dashboard and the story is there. Who is this patient, what was the diagnosis, what program are they on, what is the adherence, what is the progress. The therapist reviews, adjusts parameters, progresses or pauses the program, or flags for an in-person reassessment. <strong>The clinical judgment stays with the professional. The platform gives them the information to make that judgment confidently.</strong></p>
+    </div>
+  </div>
+  <div class="arc-closing reveal">
+    <p>This cycle repeats. Every session generates data. Every data point informs the next clinical decision. <strong>The system does not replace the therapist — it extends their reach beyond the walls of the clinic.</strong></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DEMO: SMOOTH TRACKING ═══════════════════════ -->
+<div class="exercise-demo" id="demoTracking">
+  <canvas id="trackingCanvas"></canvas>
+  <div class="demo-label">Smooth Tracking — Exercise Preview</div>
+</div>
+
+<!-- ═══════════════════════ OBSERVATIONS ═══════════════════════ -->
+<section id="observations">
+  <div class="obs-header">
+    <div class="left">
+      <div class="section-tag reveal">03 — Key Observations</div>
+      <h2 class="section-title reveal">What Others<br>Will Miss</h2>
+    </div>
+    <div class="right reveal">Five things we found in your brief that most developers will overlook entirely.</div>
+  </div>
+  <div class="obs-list">
+    <div class="obs-item reveal">
+      <div class="obs-num">01</div>
+      <div class="obs-heading"><span>Critical Finding</span>The Exercise Engine Is The Product</div>
+      <div class="obs-body">Most proposals will treat the interactive exercise engine as a feature. It is not. It is the core of everything. This engine must render <strong>smooth, precise visual stimuli in real time</strong> — with exact timing, configurable parameters, and zero lag — because children are using it for therapy. A stuttering animation is not a bug. It is a failed treatment session. We know exactly what this requires technically and we address it in the architecture section below. Getting this wrong means the therapy does not work. Getting it right means you have <strong>something licensable to other providers worldwide.</strong></div>
+    </div>
+    <div class="obs-item reveal">
+      <div class="obs-num">02</div>
+      <div class="obs-heading"><span>UX Architecture</span>Two Completely Different Users In One System</div>
+      <div class="obs-body">70% of your patients are children. They need an interface so simple and engaging they can run a session with minimal supervision. Your orthoptists need a panel sophisticated enough for clinical decision-making. These are not two pages — they are <strong>two entirely different UX philosophies</strong> that must coexist in one system. Most developers will build one and compromise the other. And there is an invisible user the brief does not name — <strong>the parent.</strong> A child doing exercises at home means someone nearby may need to help start a session, understand what is expected, or troubleshoot. The interface must account for this without adding complexity.</div>
+    </div>
+    <div class="obs-item reveal">
+      <div class="obs-num">03</div>
+      <div class="obs-heading"><span>Compliance Risk</span>Sensitive Health Data From Day One</div>
+      <div class="obs-body">Basic medical history means data protection compliance — including <strong>Ley 1581 de 2012</strong> (Colombian personal data protection) — is not a Phase 2 concern. Role-based authentication, encryption, audit trails, and daily backups must be architected into the foundation from day one, not bolted on later at higher cost. <strong>Compliance is not a phase. It is a foundation.</strong></div>
+    </div>
+    <div class="obs-item reveal">
+      <div class="obs-num">04</div>
+      <div class="obs-heading"><span>Strategic Intent</span>"Web PC Only, Chrome" Is Clinically Intentional</div>
+      <div class="obs-body">This is not a technical limitation. This is a deliberate constraint that protects the precision of your exercise rendering. Visual therapy stimuli require <strong>consistent, predictable screen behavior</strong>. We will build for this constraint deliberately — not treat it as something to work around in a future phase.</div>
+    </div>
+    <div class="obs-item reveal">
+      <div class="obs-num">05</div>
+      <div class="obs-heading"><span>Future Architecture</span>The Licensing Ambition Changes How We Build Now</div>
+      <div class="obs-body">You mentioned future licensing to other healthcare providers and expansion to other countries. This has architectural implications now — even at MVP. A system built only for Visual House today may need costly restructuring to support multiple providers tomorrow. <strong>We raise this now so the architecture decision is made consciously — not discovered painfully after launch.</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DEMO: SACCADES ═══════════════════════ -->
+<div class="exercise-demo" id="demoSaccades">
+  <canvas id="saccadesCanvas"></canvas>
+  <div class="demo-label">Saccades — Exercise Preview</div>
+</div>
+
+<!-- ═══════════════════════ QUESTIONS ═══════════════════════ -->
+<section id="questions">
+  <div class="section-tag reveal">04 — Critical Questions</div>
+  <h2 class="section-title reveal">What We Need<br>To Know</h2>
+  <p class="section-sub reveal">Eight questions that protect this project from costly mid-build surprises. We ask them now so we never have to pause later.</p>
+  <div class="q-groups">
+    <div class="q-group reveal">
+      <div class="q-group-title">Before We Design</div>
+      <div class="q-item"><span class="q-n">01</span><span class="q-text">What does a single vision therapy exercise look like in a real session today? Can we observe one or see a video? We cannot engineer the visual stimulus accurately without seeing it performed clinically.</span></div>
+      <div class="q-item"><span class="q-n">02</span><span class="q-text">Do exercises need audio instructions — particularly for child patients running sessions at home without direct supervision?</span></div>
+      <div class="q-item"><span class="q-n">03</span><span class="q-text">What is the current third-party software your therapists use? Understanding what they are accustomed to will directly inform how we design the professional panel.</span></div>
+      <div class="q-item"><span class="q-n">04</span><span class="q-text">Is there an existing domain, logo, or brand guidelines — colors, typography — that this platform must align with?</span></div>
+    </div>
+    <div class="q-group reveal">
+      <div class="q-group-title">Before We Build</div>
+      <div class="q-item"><span class="q-n">05</span><span class="q-text">Is there an existing patient database that needs to be migrated, or do all records start fresh in the new system?</span></div>
+      <div class="q-item"><span class="q-n">06</span><span class="q-text">Can you confirm Ley 1581 de 2012 as the applicable data protection regulation? Are there additional healthcare-specific compliance requirements we should account for?</span></div>
+      <div class="q-item"><span class="q-n">07</span><span class="q-text">What is the target go-live date for MVP with real patients? And what is the established budget range for this phase?</span></div>
+      <div class="q-item"><span class="q-n">08</span><span class="q-text">Who is the internal point of contact for clinical validation — who signs off that an exercise is implemented correctly from a therapeutic standpoint?</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ARCHITECTURE ═══════════════════════ -->
+<section id="architecture">
+  <div class="section-tag reveal">05 — Proposed Architecture</div>
+  <h2 class="section-title reveal">What We Would<br>Build and Why</h2>
+  <div class="arch-layers">
+    <div class="arch-layer reveal">
+      <div class="arch-layer-num">Layer 01</div>
+      <h3>The Clinical Core</h3>
+      <div class="arch-sub">Backend Foundation</div>
+      <ul class="arch-items">
+        <li>Patient registration with diagnosis and assigned professional</li>
+        <li>Therapist builds personalized therapy program — selecting exercises, setting parameters, defining the weekly schedule</li>
+        <li>System records every session — completed, missed, time spent, date</li>
+        <li>Adherence and progress data flows back to the therapist dashboard for clinical review</li>
+        <li>Reporting engine — filtered by patient, therapist, or date range — exported as PDF or Excel</li>
+        <li>Role-based authentication across three user types: Patient, Orthoptist, Administrator</li>
+        <li>Encrypted medical records with basic change history audit trail</li>
+        <li>Daily automated backups</li>
+        <li>Ley 1581 de 2012 compliance architected from day one — not added later</li>
+      </ul>
+      <div class="arch-tech">Stack: <span>Node.js / PostgreSQL / Cloud (AWS or equivalent — pending evaluation together)</span></div>
+    </div>
+    <div class="arch-layer reveal">
+      <div class="arch-layer-num">Layer 02</div>
+      <h3>The Exercise Engine</h3>
+      <div class="arch-sub">The Heart of The Product</div>
+      <ul class="arch-items">
+        <li>Four exercise types built for MVP: Smooth Tracking, Saccades, Basic Vergences, Basic Accommodation</li>
+        <li>Each exercise is a precise visual stimulus rendered on screen — not a video, not a pre-recorded animation, but a real-time interactive environment the patient engages with</li>
+        <li>Every exercise is configurable by the therapist: speed, size, duration, difficulty level</li>
+        <li>Session controls — start, pause, resume, complete — so the patient or a supervising parent can manage the experience</li>
+        <li>Built for Chrome on PC — deliberately matched to the clinical constraint to ensure consistent, predictable rendering</li>
+        <li>Smooth, lag-free performance — because a stutter in a visual therapy exercise is not a UI issue, it is a clinical issue</li>
+      </ul>
+      <div class="arch-tech">Stack: <span>HTML5 Canvas + requestAnimationFrame + React session wrapper</span></div>
+    </div>
+    <div class="arch-layer reveal">
+      <div class="arch-layer-num">Layer 03</div>
+      <h3>The Dual Interface</h3>
+      <div class="arch-sub">Two UX Philosophies, One System</div>
+      <ul class="arch-items">
+        <li><strong>Patient experience:</strong> Log in, see today's session, run the exercises, complete. Simple enough for a child, clear enough for a parent helping nearby. No decisions required — just follow the program.</li>
+        <li><strong>Therapist experience:</strong> See your patients. See their diagnosis. See what program they are on, what the schedule is, what the adherence looks like. The data tells the story — the therapist makes the clinical decision. Assign programs, adjust parameters, pause or progress treatment.</li>
+        <li><strong>Administrator experience:</strong> Manage users, manage system settings, pull global reports across all patients and therapists.</li>
+        <li>Language: Spanish — with English-ready architecture for future expansion</li>
+        <li>Platform: Web, Chrome, PC — built to the clinical constraint, not by default</li>
+      </ul>
+      <div class="arch-tech">Stack: <span>React / Tailwind / Recharts</span></div>
+    </div>
+  </div>
+  <div class="mvp-note reveal">
+    <div class="mvp-col">
+      <h4>MVP Delivers</h4>
+      <ul>
+        <li><span class="tick">✓</span> Functional exercise engine — four clinically configurable exercise types</li>
+        <li><span class="tick">✓</span> Complete patient management — registration, diagnosis, assigned professional</li>
+        <li><span class="tick">✓</span> Therapy program builder — exercises, parameters, weekly schedule</li>
+        <li><span class="tick">✓</span> Session logging — completed, missed, time spent</li>
+        <li><span class="tick">✓</span> Adherence and progress reporting — filtered, exportable as PDF and Excel</li>
+        <li><span class="tick">✓</span> Three user roles fully operational — Patient, Orthoptist, Administrator</li>
+        <li><span class="tick">✓</span> Home therapy kit flow — in-person patients purchase the kit and access the platform from home</li>
+        <li><span class="tick">✓</span> Security and data compliance from day one</li>
+        <li><span class="tick">✓</span> 500–1,000 user capacity, 24/7 availability</li>
+      </ul>
+    </div>
+    <div class="mvp-col">
+      <h4>MVP Does Not Include (By Design)</h4>
+      <ul>
+        <li><span class="cross">○</span> Gamification — Phase 2</li>
+        <li><span class="cross">○</span> Adaptive difficulty algorithms — Phase 2. In the MVP, the therapist controls all parameter adjustments manually</li>
+        <li><span class="cross">○</span> AI adjustment engine — Phase 2</li>
+        <li><span class="cross">○</span> WhatsApp / Calendar integration — Phase 2</li>
+        <li><span class="cross">○</span> Mobile / multi-browser support — Phase 2</li>
+        <li><span class="cross">○</span> Automated diagnosis — never. Clinical responsibility stays with the orthoptist</li>
+        <li><span class="cross">○</span> Virtual Reality — out of scope</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ AMBIENT VISUAL BREAK ═══════════════════════ -->
+<div class="ambient-break" id="ambientBreak">
+  <canvas id="ambientCanvas"></canvas>
+</div>
+
+<!-- ═══════════════════════ USER STORIES (PLACEHOLDER) ═══════════════════════ -->
+<section id="user-stories">
+  <div class="section-tag reveal">06 — User Stories & Acceptance Criteria</div>
+  <h2 class="section-title reveal">How Every Role<br>Interacts With The System</h2>
+  <p class="section-sub reveal">A step-by-step walkthrough of how each user — patient, therapist, and administrator — experiences the platform from first login to daily use. Each action defined, each behavior specified.</p>
+  <div class="stories-preview">
+    <div class="story-card reveal">
+      <div class="story-role">The Patient</div>
+      <div class="story-flow">Account created by the therapist after in-person assessment — the patient never self-registers. They log in and see one thing: today's session. How many exercises, what to do, start. They follow the program. The system records everything — completed, missed, time spent, date. For a child, there are no decisions to make. Just participation.</div>
+    </div>
+    <div class="story-card reveal">
+      <div class="story-role">The Therapist</div>
+      <div class="story-flow">Logs in and immediately sees who needs attention — every patient listed with their diagnosis, program status, and a clear adherence indicator showing sessions completed vs assigned this week. Registers new patients with diagnosis and medical history. Builds personalized programs — selects exercises, configures every parameter, sets the schedule. Reviews individual patient progress over time. Adjusts, pauses, or completes programs based on the data. Exports reports filtered by patient, date, or their full patient list.</div>
+    </div>
+    <div class="story-card reveal">
+      <div class="story-role">The Administrator</div>
+      <div class="story-flow">Global visibility — total patients, active programs, overall adherence, active therapists. Manages all user accounts. Pulls cross-system reports that span every therapist and every patient. Views the audit trail — a chronological record of who did what and when, for accountability and data protection compliance.</div>
+    </div>
+  </div>
+  <div class="stories-cta reveal">
+    <p>Every user action, system behavior, and acceptance criterion is detailed in the accompanying document —</p>
+    <a href="user-stories.html" class="story-link">
+      View Full User Stories & Acceptance Criteria
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════ TEAM ═══════════════════════ -->
+<section id="team">
+  <div class="section-tag reveal">07 — Team & Approach</div>
+  <h2 class="section-title reveal">Who We Are and<br>How We Work</h2>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-role">Web Solutions Strategist & Frontend Lead</div>
+      <div class="team-name">[Your Name]</div>
+      <p class="team-desc">Background in AI/ML foundations, frontend engineering, and business analysis. Does not build what he is told — diagnoses the real problem first, then designs and builds the solution. Approaches every project by understanding how the business actually operates before writing a line of code. Specializes in complex frontend systems, real-time rendering, and translating business requirements into technical architecture.</p>
+      <div class="team-skills">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">HTML5 Canvas</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">AI/ML</span>
+        <span class="skill-tag">Business Analysis</span>
+      </div>
+    </div>
+    <div class="team-card dark reveal">
+      <div class="team-role">Project Lead & Business Development</div>
+      <div class="team-name">[Friend's Name]</div>
+      <p class="team-desc">Background and credentials to be completed by [Friend's Name].</p>
+      <div class="team-skills"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ TIMELINE ═══════════════════════ -->
+<section id="timeline">
+  <div class="section-tag reveal">08 — Timeline & Phases</div>
+  <h2 class="section-title reveal">A Realistic Path<br>to MVP</h2>
+  <div class="phases">
+
+    <!-- PHASE A -->
+    <div class="phase-group-label reveal">
+      <div class="pgl-title">Phase A — Discovery & Design</div>
+      <div class="pgl-badge">Separately Budgeted</div>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-id">
+        <div class="phase-num">Phase 00</div>
+        <div class="phase-name">Discovery & Design</div>
+      </div>
+      <div class="phase-items">
+        <span class="phase-tag">Observe real therapy sessions</span>
+        <span class="phase-tag">Document exercise behavior precisely</span>
+        <span class="phase-tag">Define design system</span>
+        <span class="phase-tag">Build full UI/UX for patient and therapist</span>
+        <span class="phase-tag">Clinical approval on interface</span>
+      </div>
+      <div class="phase-weeks"><span class="wk">Weeks 1–6</span><span class="wk-label">Foundation</span></div>
+    </div>
+    <div class="phase-deliverables reveal">
+      <div class="pd-title">Phase A Deliverables</div>
+      <p>Complete UI/UX designs for all three user roles. Full user stories and acceptance criteria. Technical architecture specification. Exercise engine specification. Clinical observation documentation. These deliverables are yours regardless of what follows.</p>
+    </div>
+
+    <!-- PHASE B -->
+    <div class="phase-group-label reveal">
+      <div class="pgl-title">Phase B — Development to Launch</div>
+      <div class="pgl-badge">Budget Submitted After Phase A</div>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-id">
+        <div class="phase-num">Phase 01</div>
+        <div class="phase-name">Clinical Core</div>
+      </div>
+      <div class="phase-items">
+        <span class="phase-tag">Authentication + role-based access</span>
+        <span class="phase-tag">Patient registration + diagnosis</span>
+        <span class="phase-tag">Therapy program data structure + backend logic</span>
+        <span class="phase-tag">Database architecture</span>
+        <span class="phase-tag">Admin panel</span>
+      </div>
+      <div class="phase-weeks"><span class="wk">Weeks 7–11</span><span class="wk-label">Backend</span></div>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-id">
+        <div class="phase-num">Phase 02</div>
+        <div class="phase-name">The Engine</div>
+      </div>
+      <div class="phase-items">
+        <span class="phase-tag">Canvas environment</span>
+        <span class="phase-tag">4 exercise types</span>
+        <span class="phase-tag">Therapist-configurable parameters</span>
+        <span class="phase-tag">Session controls</span>
+        <span class="phase-tag">Smooth performance validation</span>
+      </div>
+      <div class="phase-weeks"><span class="wk">Weeks 12–16</span><span class="wk-label">Core Product</span></div>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-id">
+        <div class="phase-num">Phase 03</div>
+        <div class="phase-name">Clinical Panel</div>
+      </div>
+      <div class="phase-items">
+        <span class="phase-tag">Therapist dashboard</span>
+        <span class="phase-tag">Program assignment interface</span>
+        <span class="phase-tag">Adherence overview</span>
+        <span class="phase-tag">Progress visualization</span>
+        <span class="phase-tag">Parameter adjustment</span>
+      </div>
+      <div class="phase-weeks"><span class="wk">Weeks 17–21</span><span class="wk-label">Professional</span></div>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-id">
+        <div class="phase-num">Phase 04</div>
+        <div class="phase-name">Polish + Reports</div>
+      </div>
+      <div class="phase-items">
+        <span class="phase-tag">PDF/Excel export</span>
+        <span class="phase-tag">Full QA</span>
+        <span class="phase-tag">Performance audit</span>
+        <span class="phase-tag">Security audit</span>
+        <span class="phase-tag">Patient UX review — child-user assumption</span>
+        <span class="phase-tag">Spanish language review</span>
+      </div>
+      <div class="phase-weeks"><span class="wk">Weeks 22–24</span><span class="wk-label">Refinement</span></div>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-id">
+        <div class="phase-num">Phase 05</div>
+        <div class="phase-name">MVP Launch</div>
+      </div>
+      <div class="phase-items">
+        <span class="phase-tag">Real patient testing</span>
+        <span class="phase-tag">Clinical sign-off</span>
+        <span class="phase-tag">Bug resolution</span>
+        <span class="phase-tag">Production deploy</span>
+        <span class="phase-tag">Handover documentation</span>
+      </div>
+      <div class="phase-weeks"><span class="wk">Weeks 25–27</span><span class="wk-label">Live</span></div>
+    </div>
+  </div>
+  <div class="timeline-total reveal">
+    <p>Total estimated timeline to functional MVP with real patients. Phase A is budgeted independently. Phase B is quoted after Phase A is complete — based on a locked, agreed scope.</p>
+    <strong>6 – 7 Months</strong>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CLOSING ═══════════════════════ -->
+<section id="closing">
+  <canvas id="closingCanvas"></canvas>
+  <div class="closing-tag">Ready When You Are</div>
+  <h2 class="closing-title">Let's Build Something<br><em>Worth Licensing.</em></h2>
+  <p class="closing-sub">This proposal is the beginning of the conversation, not the end of it. We have understood the problem. We have mapped the system. What comes next is building it — together. A system that serves real patients and scales a real business.</p>
+  <a href="mailto:placeholder@email.com" class="closing-cta">
+    Start the Conversation
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </a>
+</section>
+
+<script>
+  // ═══════════════════════ CURSOR ═══════════════════════
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  // Hide custom cursor on touch devices
+  if ('ontouchstart' in window) {
+    document.body.style.cursor = 'auto';
+    cursor.style.display = 'none';
+    ring.style.display = 'none';
+  } else {
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx - 4 + 'px';
+      cursor.style.top = my - 4 + 'px';
+    });
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx - 16 + 'px';
+      ring.style.top = ry - 16 + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+  }
+
+  // ═══════════════════════ PROGRESS BAR ═══════════════════════
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
+  });
+
+  // ═══════════════════════ HERO CANVAS ═══════════════════════
+  const hc = document.getElementById('heroCanvas');
+  const hctx = hc.getContext('2d');
+  let hw, hh;
+  function resizeHero() {
+    hw = hc.width = hc.offsetWidth;
+    hh = hc.height = hc.offsetHeight;
+  }
+  resizeHero();
+  window.addEventListener('resize', resizeHero);
+
+  const dots = [
+    { x: 0.2, y: 0.5, tx: 0.8, ty: 0.5, speed: 0.004, r: 4, type: 'saccade' },
+    { x: 0.5, y: 0.3, tx: 0.5, ty: 0.7, speed: 0.002, r: 3, type: 'tracking' },
+    { x: 0.1, y: 0.2, tx: 0.9, ty: 0.8, speed: 0.003, r: 2, type: 'saccade' },
+  ];
+  let ht = 0;
+  function drawHero() {
+    hctx.clearRect(0, 0, hw, hh);
+    ht += 0.008;
+    dots.forEach((d, i) => {
+      let px, py;
+      if (d.type === 'saccade') {
+        const progress = (Math.sin(ht * d.speed * 300 + i) + 1) / 2;
+        px = (d.x + (d.tx - d.x) * progress) * hw;
+        py = (d.y + (d.ty - d.y) * progress) * hh;
+      } else {
+        px = (0.2 + Math.sin(ht * 0.5 + i) * 0.3 + 0.3) * hw;
+        py = (d.y + Math.sin(ht * 0.3 + i * 2) * 0.15) * hh;
+      }
+      hctx.beginPath();
+      hctx.arc(px, py, d.r * 8, 0, Math.PI * 2);
+      hctx.fillStyle = 'rgba(0, 201, 177, 0.03)';
+      hctx.fill();
+      hctx.beginPath();
+      hctx.arc(px, py, d.r, 0, Math.PI * 2);
+      hctx.fillStyle = 'rgba(0, 201, 177, 0.7)';
+      hctx.fill();
+      hctx.strokeStyle = 'rgba(0, 201, 177, 0.2)';
+      hctx.lineWidth = 0.5;
+      hctx.beginPath();
+      hctx.moveTo(px - 20, py); hctx.lineTo(px + 20, py);
+      hctx.moveTo(px, py - 20); hctx.lineTo(px, py + 20);
+      hctx.stroke();
+    });
+    hctx.strokeStyle = 'rgba(0, 201, 177, 0.04)';
+    hctx.lineWidth = 1;
+    for (let x = 0; x < hw; x += 80) {
+      hctx.beginPath(); hctx.moveTo(x, 0); hctx.lineTo(x, hh); hctx.stroke();
+    }
+    for (let y = 0; y < hh; y += 80) {
+      hctx.beginPath(); hctx.moveTo(0, y); hctx.lineTo(hw, y); hctx.stroke();
+    }
+    requestAnimationFrame(drawHero);
+  }
+  drawHero();
+
+  // ═══════════════════════ SMOOTH TRACKING DEMO ═══════════════════════
+  const tc = document.getElementById('trackingCanvas');
+  const tctx = tc.getContext('2d');
+  let tw, th;
+  function resizeTracking() {
+    tw = tc.width = tc.offsetWidth;
+    th = tc.height = tc.offsetHeight;
+  }
+  resizeTracking();
+  window.addEventListener('resize', resizeTracking);
+
+  let tt = 0;
+  function drawTracking() {
+    tctx.clearRect(0, 0, tw, th);
+    tt += 0.008;
+
+    const dotX = (0.1 + ((Math.sin(tt * 0.4) + 1) / 2) * 0.8) * tw;
+    const dotY = th / 2 + Math.sin(tt * 0.8) * th * 0.08;
+
+    // Trail
+    for (let i = 5; i > 0; i--) {
+      const trailT = tt - i * 0.015;
+      const trailX = (0.1 + ((Math.sin(trailT * 0.4) + 1) / 2) * 0.8) * tw;
+      const trailY = th / 2 + Math.sin(trailT * 0.8) * th * 0.08;
+      tctx.beginPath();
+      tctx.arc(trailX, trailY, 6 - i * 0.8, 0, Math.PI * 2);
+      tctx.fillStyle = `rgba(0, 201, 177, ${0.15 - i * 0.025})`;
+      tctx.fill();
+    }
+
+    // Glow
+    const grad = tctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, 40);
+    grad.addColorStop(0, 'rgba(0, 201, 177, 0.15)');
+    grad.addColorStop(1, 'transparent');
+    tctx.fillStyle = grad;
+    tctx.fillRect(dotX - 40, dotY - 40, 80, 80);
+
+    // Main dot
+    tctx.beginPath();
+    tctx.arc(dotX, dotY, 6, 0, Math.PI * 2);
+    tctx.fillStyle = 'rgba(0, 201, 177, 0.9)';
+    tctx.fill();
+
+    // Guide line
+    tctx.strokeStyle = 'rgba(0, 201, 177, 0.06)';
+    tctx.lineWidth = 1;
+    tctx.beginPath();
+    tctx.moveTo(tw * 0.1, th / 2);
+    tctx.lineTo(tw * 0.9, th / 2);
+    tctx.stroke();
+
+    requestAnimationFrame(drawTracking);
+  }
+  drawTracking();
+
+  // ═══════════════════════ SACCADES DEMO ═══════════════════════
+  const sc = document.getElementById('saccadesCanvas');
+  const sctx = sc.getContext('2d');
+  let sw, sh;
+  function resizeSaccades() {
+    sw = sc.width = sc.offsetWidth;
+    sh = sc.height = sc.offsetHeight;
+  }
+  resizeSaccades();
+  window.addEventListener('resize', resizeSaccades);
+
+  const saccadeTargets = [
+    { x: 0.2, y: 0.5 },
+    { x: 0.8, y: 0.35 },
+    { x: 0.5, y: 0.65 },
+    { x: 0.3, y: 0.3 },
+    { x: 0.7, y: 0.6 },
+  ];
+  let currentTarget = 0;
+  let saccadeDotX = saccadeTargets[0].x;
+  let saccadeDotY = saccadeTargets[0].y;
+  let saccadeTimer = 0;
+  const holdDuration = 90;
+  const jumpSpeed = 0.35;
+
+  function drawSaccades() {
+    sctx.clearRect(0, 0, sw, sh);
+    saccadeTimer++;
+
+    const targetX = saccadeTargets[currentTarget].x;
+    const targetY = saccadeTargets[currentTarget].y;
+
+    saccadeDotX += (targetX - saccadeDotX) * jumpSpeed;
+    saccadeDotY += (targetY - saccadeDotY) * jumpSpeed;
+
+    if (saccadeTimer > holdDuration) {
+      saccadeTimer = 0;
+      currentTarget = (currentTarget + 1) % saccadeTargets.length;
+    }
+
+    const px = saccadeDotX * sw;
+    const py = saccadeDotY * sh;
+
+    // Target markers
+    saccadeTargets.forEach((t) => {
+      const tx = t.x * sw;
+      const ty = t.y * sh;
+      sctx.strokeStyle = 'rgba(0, 201, 177, 0.08)';
+      sctx.lineWidth = 1;
+      sctx.beginPath();
+      sctx.moveTo(tx - 8, ty); sctx.lineTo(tx + 8, ty);
+      sctx.moveTo(tx, ty - 8); sctx.lineTo(tx, ty + 8);
+      sctx.stroke();
+    });
+
+    // Glow
+    const grad = sctx.createRadialGradient(px, py, 0, px, py, 50);
+    grad.addColorStop(0, 'rgba(0, 201, 177, 0.12)');
+    grad.addColorStop(1, 'transparent');
+    sctx.fillStyle = grad;
+    sctx.fillRect(px - 50, py - 50, 100, 100);
+
+    // Main dot
+    sctx.beginPath();
+    sctx.arc(px, py, 7, 0, Math.PI * 2);
+    sctx.fillStyle = 'rgba(0, 201, 177, 0.9)';
+    sctx.fill();
+
+    // Ring
+    sctx.beginPath();
+    sctx.arc(px, py, 14, 0, Math.PI * 2);
+    sctx.strokeStyle = 'rgba(0, 201, 177, 0.2)';
+    sctx.lineWidth = 1;
+    sctx.stroke();
+
+    requestAnimationFrame(drawSaccades);
+  }
+  drawSaccades();
+
+  // ═══════════════════════ AMBIENT VISUAL BREAK ═══════════════════════
+  const ac = document.getElementById('ambientCanvas');
+  const actx = ac.getContext('2d');
+  let aw, ah;
+  function resizeAmbient() {
+    aw = ac.width = ac.offsetWidth;
+    ah = ac.height = ac.offsetHeight;
+  }
+  resizeAmbient();
+  window.addEventListener('resize', resizeAmbient);
+
+  // Grid of nodes that pulse gently
+  const nodes = [];
+  const nodeCount = 40;
+  for (let i = 0; i < nodeCount; i++) {
+    nodes.push({
+      x: Math.random(),
+      y: Math.random(),
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.005 + Math.random() * 0.01,
+      baseR: 1.5 + Math.random() * 1.5,
+    });
+  }
+
+  let at = 0;
+  function drawAmbient() {
+    actx.clearRect(0, 0, aw, ah);
+    at += 0.008;
+
+    // Draw connections between nearby nodes
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = (nodes[i].x - nodes[j].x) * aw;
+        const dy = (nodes[i].y - nodes[j].y) * ah;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          const opacity = (1 - dist / 150) * 0.06;
+          actx.strokeStyle = `rgba(0, 201, 177, ${opacity})`;
+          actx.lineWidth = 0.5;
+          actx.beginPath();
+          actx.moveTo(nodes[i].x * aw, nodes[i].y * ah);
+          actx.lineTo(nodes[j].x * aw, nodes[j].y * ah);
+          actx.stroke();
+        }
+      }
+    }
+
+    // Draw nodes
+    nodes.forEach(n => {
+      const pulse = Math.sin(at * 2 + n.phase) * 0.5 + 0.5;
+      const r = n.baseR + pulse * 1.5;
+      const px = n.x * aw;
+      const py = n.y * ah;
+
+      // Glow
+      actx.beginPath();
+      actx.arc(px, py, r * 6, 0, Math.PI * 2);
+      actx.fillStyle = `rgba(0, 201, 177, ${0.02 + pulse * 0.02})`;
+      actx.fill();
+
+      // Dot
+      actx.beginPath();
+      actx.arc(px, py, r, 0, Math.PI * 2);
+      actx.fillStyle = `rgba(0, 201, 177, ${0.3 + pulse * 0.3})`;
+      actx.fill();
+
+      // Slow drift
+      n.x += Math.sin(at * 0.3 + n.phase) * 0.0001;
+      n.y += Math.cos(at * 0.2 + n.phase) * 0.0001;
+    });
+
+    requestAnimationFrame(drawAmbient);
+  }
+  drawAmbient();
+
+  // ═══════════════════════ CLOSING CANVAS ═══════════════════════
+  const cc = document.getElementById('closingCanvas');
+  const cctx = cc.getContext('2d');
+  function resizeClosing() {
+    cc.width = cc.offsetWidth;
+    cc.height = cc.offsetHeight;
+  }
+  resizeClosing();
+  window.addEventListener('resize', resizeClosing);
+  let ct = 0;
+  function drawClosing() {
+    cctx.clearRect(0, 0, cc.width, cc.height);
+    ct += 0.005;
+    const cx = cc.width / 2 + Math.sin(ct * 0.7) * cc.width * 0.15;
+    const cy = cc.height / 2 + Math.cos(ct * 0.5) * cc.height * 0.1;
+    const grad = cctx.createRadialGradient(cx, cy, 0, cx, cy, 300);
+    grad.addColorStop(0, 'rgba(0, 201, 177, 0.15)');
+    grad.addColorStop(1, 'transparent');
+    cctx.fillStyle = grad;
+    cctx.fillRect(0, 0, cc.width, cc.height);
+    requestAnimationFrame(drawClosing);
+  }
+  drawClosing();
+
+  // ═══════════════════════ SCROLL REVEAL ═══════════════════════
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), 80 * (Array.from(reveals).indexOf(e.target) % 4));
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
