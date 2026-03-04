@@ -4,7 +4,7 @@ import './Hero.css';
 
 const content = {
     en: {
-        tag: "Visual House Ortoptica × [Your Team Name] — 2026",
+        tag: "Visual House Ortoptica × [Newman-Timi] — 2026",
         titlePart1: "Your Therapy Works.",
         titlePart2: "Now Let It Scale.",
         sub: "We read your brief. Then we read between the lines. What follows is not a pitch — it is proof that we understand what you are actually building.",
@@ -12,7 +12,7 @@ const content = {
         scrollHint: "Scroll to explore"
     },
     es: {
-        tag: "Visual House Ortoptica × [Your Team Name] — 2026",
+        tag: "Visual House Ortoptica × [Newman-Timi] — 2026",
         titlePart1: "Su Terapia Funciona.",
         titlePart2: "Ahora Déjela Escalar.",
         sub: "Leímos su brief. Luego leímos entre líneas. Lo que sigue no es una propuesta comercial — es la prueba de que entendemos lo que realmente están construyendo.",

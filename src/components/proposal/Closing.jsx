@@ -31,7 +31,7 @@ export default function Closing() {
                 {t.titlePart1}<br /><em>{t.titlePart2}</em>
             </h2>
             <p className="closing-sub">{t.sub}</p>
-            <a href="mailto:placeholder@email.com" className="closing-cta">
+            <a href="mailto:newmanadesan@gmail.com" className="closing-cta">
                 {t.ctaText}
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

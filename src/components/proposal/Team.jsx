@@ -10,15 +10,15 @@ const content = {
         members: [
             {
                 role: "Web Solutions Strategist & Frontend Lead",
-                name: "[Your Name]",
+                name: "Newman",
                 desc: "Background in AI/ML foundations, frontend engineering, and business analysis. Does not build what he is told — diagnoses the real problem first, then designs and builds the solution. Approaches every project by understanding how the business actually operates before writing a line of code. Specializes in complex frontend systems, real-time rendering, and translating business requirements into technical architecture.",
                 skills: ["React", "HTML5 Canvas", "Node.js", "AI/ML", "Business Analysis"],
                 isDark: false
             },
             {
                 role: "Project Lead & Business Development",
-                name: "[Friend's Name]",
-                desc: "Background and credentials to be completed by [Friend's Name].",
+                name: "Timilehin",
+                desc: "Background and credentials to be completed by Timilehin.",
                 skills: [],
                 isDark: true
             }
@@ -31,14 +31,14 @@ const content = {
         members: [
             {
                 role: "Estratega de Soluciones Web & Líder Frontend",
-                name: "[Your Name]",
+                name: "Newman",
                 desc: "Experiencia en fundamentos de IA/ML, ingeniería frontend y análisis de negocios. No construye simplemente lo que se le pide — primero diagnostica el problema real, luego diseña y construye la solución. Aborda cada proyecto entendiendo cómo opera realmente el negocio antes de escribir una línea de código. Se especializa en sistemas frontend complejos, renderizado en tiempo real y en la traducción de requisitos de negocio en arquitectura técnica.",
                 skills: ["React", "HTML5 Canvas", "Node.js", "IA/ML", "Análisis de Negocios"],
                 isDark: false
             },
             {
                 role: "Líder de Proyecto & Desarrollo de Negocios",
-                name: "[Friend's Name]",
+                name: "Timilehin",
                 desc: "Amigo de la casa en Visual House. Entiende los objetivos de su clínica, su forma de trabajar y el impacto que buscan. Facilita que este proyecto no se quede en un intercambio técnico, sino que sume directamente al crecimiento del negocio. Punto de contacto principal, gestión estratégica y alineación de expectativas.",
                 skills: [],
                 isDark: true
