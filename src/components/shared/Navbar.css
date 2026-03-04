@@ -21,7 +21,7 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: 36px;
+    gap: 24px;
     list-style: none;
     align-items: center;
     text-align: center;
@@ -63,7 +63,7 @@ nav {
     }
 
     .nav-links {
-        gap: 24px;
+        gap: 16px;
     }
 
     .nav-links a {
