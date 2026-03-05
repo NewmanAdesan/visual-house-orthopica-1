@@ -23,8 +23,8 @@ const content = {
                     "Daily automated backups",
                     "Ley 1581 de 2012 compliance architected from day one — not added later"
                 ],
-                techLabel: "Stack: ",
-                techValue: "Node.js / PostgreSQL / Cloud (AWS or equivalent — pending evaluation together)"
+                techLabel: "",
+                techValue: ""
             },
             {
                 num: "Layer 02",
@@ -71,11 +71,11 @@ const content = {
             ],
             notHeading: "MVP Does Not Include (By Design)",
             notItems: [
-                "Gamification — Phase 2",
-                "Adaptive difficulty algorithms — Phase 2. In the MVP, the therapist controls all parameter adjustments manually",
-                "AI adjustment engine — Phase 2",
-                "WhatsApp / Calendar integration — Phase 2",
-                "Mobile / multi-browser support — Phase 2",
+                "Gamification — Future Phases",
+                "Adaptive difficulty algorithms — Future Phases. In the MVP, the therapist controls all parameter adjustments manually",
+                "AI adjustment engine — Future Phases",
+                "WhatsApp / Calendar integration — Future Phases",
+                "Mobile / multi-browser support — Future Phases",
                 "Automated diagnosis — never. Clinical responsibility stays with the orthoptist",
                 "Virtual Reality — out of scope"
             ]
@@ -101,8 +101,8 @@ const content = {
                     "Copias de seguridad automáticas diarias",
                     "Cumplimiento de la Ley 1581 de 2012 estructurado desde el día uno — no agregado después"
                 ],
-                techLabel: "Stack: ",
-                techValue: "Node.js / PostgreSQL / Cloud (AWS o equivalente — pendiente de evaluación conjunta)"
+                techLabel: "",
+                techValue: ""
             },
             {
                 num: "Capa 02",
@@ -149,11 +149,11 @@ const content = {
             ],
             notHeading: "El MVP No Incluye (Diseñado Así)",
             notItems: [
-                "Gamificación — Fase 2",
-                "Algoritmos de dificultad adaptativa — Fase 2. En el MVP, el terapeuta controla todos los ajustes de parámetros manualmente",
-                "Motor de ajuste por IA — Fase 2",
-                "Integración WhatsApp / Calendario — Fase 2",
-                "Soporte Móvil / Multi-navegador — Fase 2",
+                "Gamificación — Fases Futuras",
+                "Algoritmos de dificultad adaptativa — Fases Futuras. En el MVP, el terapeuta controla todos los ajustes de parámetros manualmente",
+                "Motor de ajuste por IA — Fases Futuras",
+                "Integración WhatsApp / Calendario — Fases Futuras",
+                "Soporte Móvil / Multi-navegador — Fases Futuras",
                 "Diagnóstico automatizado — nunca. La responsabilidad clínica se mantiene con el ortoptista",
                 "Realidad Virtual — fuera del alcance"
             ]
@@ -185,9 +185,9 @@ export default function Architecture() {
                                 <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
                             ))}
                         </ul>
-                        <div className="arch-tech">
+                        {/* <div className="arch-tech">
                             {layer.techLabel}<span>{layer.techValue}</span>
-                        </div>
+                        </div> */}
                     </ScrollReveal>
                 ))}
             </div>

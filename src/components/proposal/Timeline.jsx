@@ -33,40 +33,40 @@ const content = {
                 num: "Phase 01",
                 name: "Clinical Core",
                 items: ["Authentication + role-based access", "Patient registration + diagnosis", "Therapy program data structure + backend logic", "Database architecture", "Admin panel"],
-                weeks: "Weeks 7–11",
+                weeks: "",
                 label: "Backend"
             },
             {
                 num: "Phase 02",
                 name: "The Engine",
                 items: ["Canvas environment", "4 exercise types", "Therapist-configurable parameters", "Session controls", "Smooth performance validation"],
-                weeks: "Weeks 12–16",
+                weeks: "",
                 label: "Core Product"
             },
             {
                 num: "Phase 03",
                 name: "Clinical Panel",
                 items: ["Therapist dashboard", "Program assignment interface", "Adherence overview", "Progress visualization", "Parameter adjustment"],
-                weeks: "Weeks 17–21",
+                weeks: "",
                 label: "Professional"
             },
             {
                 num: "Phase 04",
                 name: "Polish + Reports",
                 items: ["PDF/Excel export", "Full QA", "Performance audit", "Security audit", "Patient UX review — child-user assumption", "Spanish language review"],
-                weeks: "Weeks 22–24",
+                weeks: "",
                 label: "Refinement"
             },
             {
                 num: "Phase 05",
                 name: "MVP Launch",
                 items: ["Real patient testing", "Clinical sign-off", "Bug resolution", "Production deploy", "Handover documentation"],
-                weeks: "Weeks 25–27",
+                weeks: "",
                 label: "Live"
             }
         ],
         totalDesc: "Total estimated timeline to functional MVP with real patients. Phase A is budgeted independently. Phase B is quoted after Phase A is complete — based on a locked, agreed scope.",
-        totalTime: "6 – 7 Months"
+        totalTime: ""
     },
     es: {
         tag: "08 — Cronograma y Fases",
@@ -98,40 +98,40 @@ const content = {
                 num: "Fase 01",
                 name: "Núcleo Clínico",
                 items: ["Autenticación + acceso por roles", "Registro de paciente + diagnóstico", "Estructura de datos del programa de terapia + lógica backend", "Arquitectura de base de datos", "Panel de administración"],
-                weeks: "Semanas 7–11",
+                weeks: "",
                 label: "Backend"
             },
             {
                 num: "Fase 02",
                 name: "El Motor",
                 items: ["Entorno Canvas", "4 tipos de ejercicios", "Parámetros configurables por el terapeuta", "Controles de sesión", "Validación de rendimiento fluido"],
-                weeks: "Semanas 12–16",
+                weeks: "",
                 label: "Producto Central"
             },
             {
                 num: "Fase 03",
                 name: "Panel Clínico",
                 items: ["Panel del terapeuta", "Interfaz de asignación de programas", "Resumen de adherencia", "Visualización de progreso", "Ajuste de parámetros"],
-                weeks: "Semanas 17–21",
+                weeks: "",
                 label: "Profesional"
             },
             {
                 num: "Fase 04",
                 name: "Pulido + Reportes",
                 items: ["Exportación a PDF/Excel", "QA Completo", "Auditoría de rendimiento", "Auditoría de seguridad", "Revisión de UX de paciente — bajo el supuesto de un usuario infantil", "Revisión de idioma Español"],
-                weeks: "Semanas 22–24",
+                weeks: "",
                 label: "Refinamiento"
             },
             {
                 num: "Fase 05",
                 name: "Lanzamiento del MVP",
                 items: ["Pruebas con pacientes reales", "Firma de aprobación clínica", "Resolución de errores", "Despliegue a producción", "Documentación de entrega"],
-                weeks: "Semanas 25–27",
+                weeks: "",
                 label: "En Vivo"
             }
         ],
         totalDesc: "Tiempo total estimado para un MVP funcional con pacientes reales. La Fase A se presupuesta de forma independiente. La Fase B se cotiza una vez completada la Fase A — basándose en un alcance bloqueado y acordado.",
-        totalTime: "6 – 7 Meses"
+        totalTime: ""
     }
 };
 
@@ -191,7 +191,7 @@ export default function Timeline() {
 
             <ScrollReveal delay={880} className="timeline-total">
                 <p>{t.totalDesc}</p>
-                <strong>{t.totalTime}</strong>
+                {/* <strong>{t.totalTime}</strong> */}
             </ScrollReveal>
         </section>
     );
