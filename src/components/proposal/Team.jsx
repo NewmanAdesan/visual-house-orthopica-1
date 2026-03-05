@@ -12,13 +12,13 @@ const content = {
                 role: "Web Solutions Strategist & Frontend Lead",
                 name: "Newman",
                 desc: "Background in AI/ML foundations, frontend engineering, and business analysis. Does not build what he is told — diagnoses the real problem first, then designs and builds the solution. Approaches every project by understanding how the business actually operates before writing a line of code. Specializes in complex frontend systems, real-time rendering, and translating business requirements into technical architecture.",
-                skills: ["React", "HTML5 Canvas", "Node.js", "AI/ML", "Business Analysis"],
+                skills: ["React", "HTML5 Canvas", "Typescript", "AI/ML", "Business Analysis"],
                 isDark: false
             },
             {
                 role: "Project Lead & Business Development",
-                name: "Timilehin",
-                desc: "Background and credentials to be completed by Timilehin.",
+                name: "Vblan Cross",
+                desc: "Project Lead and Business Developer with a strong focus on driving strategic growth, managing cross-functional teams, and delivering impactful projects from concept to completion. Skilled in identifying business opportunities, building partnerships, and aligning project execution with organizational goals.",
                 skills: [],
                 isDark: true
             }
@@ -33,13 +33,13 @@ const content = {
                 role: "Estratega de Soluciones Web & Líder Frontend",
                 name: "Newman",
                 desc: "Experiencia en fundamentos de IA/ML, ingeniería frontend y análisis de negocios. No construye simplemente lo que se le pide — primero diagnostica el problema real, luego diseña y construye la solución. Aborda cada proyecto entendiendo cómo opera realmente el negocio antes de escribir una línea de código. Se especializa en sistemas frontend complejos, renderizado en tiempo real y en la traducción de requisitos de negocio en arquitectura técnica.",
-                skills: ["React", "HTML5 Canvas", "Node.js", "IA/ML", "Análisis de Negocios"],
+                skills: ["React", "HTML5 Canvas", "Typescript", "IA/ML", "Análisis de Negocios"],
                 isDark: false
             },
             {
                 role: "Líder de Proyecto & Desarrollo de Negocios",
-                name: "Timilehin",
-                desc: "Amigo de la casa en Visual House. Entiende los objetivos de su clínica, su forma de trabajar y el impacto que buscan. Facilita que este proyecto no se quede en un intercambio técnico, sino que sume directamente al crecimiento del negocio. Punto de contacto principal, gestión estratégica y alineación de expectativas.",
+                name: "Vblan Cross",
+                desc: "Líder de Proyecto y Desarrollo de Negocios con un enfoque sólido en impulsar el crecimiento estratégico, gestionar equipos multidisciplinarios y entregar proyectos de alto impacto desde la conceptualización hasta la ejecución. Especializado en identificar oportunidades de negocio, construir alianzas y alinear la ejecución de proyectos con los objetivos organizacionales.",
                 skills: [],
                 isDark: true
             }
