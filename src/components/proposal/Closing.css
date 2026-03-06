@@ -78,6 +78,56 @@
     transform: translateY(-2px);
 }
 
+.closing-buttons {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.closing-cta-email {
+    background: var(--teal);
+    color: var(--navy);
+}
+
+.closing-cta-email:hover {
+    background: var(--white);
+}
+
+.closing-cta-whatsapp {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--white);
+    gap: 10px;
+}
+
+.closing-cta-whatsapp:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.closing-contact-info {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey);
+    letter-spacing: 0.06em;
+}
+
+.closing-contact-divider {
+    opacity: 0.3;
+}
+
 @media (max-width: 680px) {
     #closing {
         padding: 0 24px;
@@ -90,6 +140,26 @@
     #closing .closing-sub {
         margin-bottom: 40px;
         font-size: 15px;
+    }
+
+    .closing-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .closing-cta-email,
+    .closing-cta-whatsapp {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .closing-contact-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .closing-contact-divider {
+        display: none;
     }
 }
 
