@@ -1,13 +1,20 @@
 #timeline {
-    background: var(--navy);
-    padding: 120px 60px;
-    min-height: auto;
+    background: var(--sand-light);
+    padding: 80px 60px;
+}
+
+.timeline-duration {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 48px;
 }
 
 #timeline .section-tag {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--teal);
+    color: var(--teal-dim);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-bottom: 16px;
@@ -19,235 +26,205 @@
     line-height: 1.1;
     margin-bottom: 72px;
     max-width: 600px;
+    color: var(--navy);
 }
 
-.phases {
+/* PHASE LABELS */
+.phase-label {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    margin-top: 48px;
 }
 
-.phase {
-    background: var(--navy-mid);
-    padding: 32px 48px;
+.phase-label-b {
+    margin-top: 64px;
+}
+
+.phase-label-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--teal-dim);
+    letter-spacing: 0.15em;
+    font-weight: 500;
+}
+
+.phase-label-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal-dim);
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+}
+
+/* TABLE */
+.timeline-table {
+    margin-bottom: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.tt-header {
     display: grid;
-    grid-template-columns: 220px 1fr 180px;
-    gap: 40px;
-    align-items: center;
-    transition: background 0.2s;
+    grid-template-columns: 1fr 160px;
+    background: var(--navy);
+    padding: 12px 24px;
 }
 
-.phase:hover {
-    background: var(--navy-light);
-}
-
-.phase-id {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.phase-num {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--teal);
-    letter-spacing: 0.2em;
-}
-
-.phase-name {
-    font-family: var(--serif);
-    font-size: 20px;
-}
-
-.phase-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.phase-tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    padding: 4px 10px;
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--grey-light);
-    letter-spacing: 0.05em;
-}
-
-.phase-weeks {
-    text-align: right;
-}
-
-.phase-weeks .wk {
-    font-family: var(--serif);
-    font-size: 22px;
-    color: var(--teal);
-    display: block;
-}
-
-.phase-weeks .wk-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grey);
-    letter-spacing: 0.1em;
-}
-
-.timeline-total {
-    margin-top: 40px;
-    padding: 32px 48px;
-    background: var(--teal);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
-}
-
-.timeline-total p {
-    font-family: var(--mono);
+.tt-h-feature,
+.tt-h-time {
+    font-family: var(--sans);
     font-size: 12px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--navy);
-    max-width: 500px;
-    line-height: 1.6;
+    font-weight: 500;
+    color: var(--white);
 }
 
-.timeline-total strong {
-    font-family: var(--serif);
-    font-size: 28px;
-    color: var(--navy);
-    white-space: nowrap;
+.tt-h-time {
+    text-align: center;
 }
 
-/* Phase Group Labels */
-.phase-group-label {
-    padding: 20px 48px;
-    background: var(--teal);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2px;
+.tt-row {
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    padding: 14px 24px;
+    background: var(--white);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.phase-group-label .pgl-title {
-    font-family: var(--serif);
-    font-size: 18px;
-    color: var(--navy);
+.tt-row-alt {
+    background: #F7F4EF;
 }
 
-.phase-group-label .pgl-badge {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--navy);
-    background: rgba(9, 20, 42, 0.12);
-    padding: 5px 14px;
+.tt-feature {
+    font-size: 13px;
+    color: #5a6a80;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
-.phase-deliverables {
-    padding: 28px 48px;
+.tt-time {
+    font-size: 13px;
+    color: #5a6a80;
+    font-weight: 300;
+    text-align: center;
+}
+
+.tt-subheader {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 10px 24px;
     background: var(--navy-mid);
-    border-left: 2px solid var(--teal);
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--teal);
+    letter-spacing: 0.02em;
+}
+
+.tt-total {
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    padding: 14px 24px;
+    background: var(--sand);
+}
+
+.tt-total .tt-feature,
+.tt-total .tt-time {
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.tt-grand-total {
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    padding: 16px 24px;
+    background: var(--teal);
+}
+
+.tt-grand-total .tt-feature,
+.tt-grand-total .tt-time {
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* GROUP TITLE */
+.timeline-group {
     margin-bottom: 40px;
 }
 
-.phase-deliverables .pd-title {
+.timeline-group-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 16px;
+}
+
+/* SUMMARY */
+.timeline-summary {
+    margin-top: 64px;
+}
+
+.ts-label {
     font-family: var(--mono);
-    font-size: 9px;
-    color: var(--teal);
-    letter-spacing: 0.2em;
+    font-size: 12px;
+    color: var(--teal-dim);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
-.phase-deliverables p {
-    font-size: 13px;
-    color: var(--grey-light);
-    line-height: 1.8;
-    font-weight: 300;
-}
-
+/* RESPONSIVE */
 @media (max-width: 1024px) {
     #timeline {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-
-    .phase {
-        grid-template-columns: 180px 1fr 140px;
-        gap: 24px;
-        padding: 28px 36px;
-    }
-
-    .phase-group-label {
-        padding: 18px 36px;
-    }
-
-    .phase-deliverables {
-        padding: 24px 36px;
-    }
-
-    .timeline-total {
-        flex-direction: column;
-        text-align: center;
-        gap: 16px;
-    }
-
-    .timeline-total p {
-        max-width: 100%;
+        padding: 60px 40px;
     }
 }
 
 @media (max-width: 680px) {
     #timeline {
-        padding: 80px 24px;
+        padding: 48px 24px;
     }
 
-    .phase {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 24px 28px;
+    .tt-header,
+    .tt-row,
+    .tt-total,
+    .tt-grand-total {
+        grid-template-columns: 1fr 100px;
+        padding: 12px 16px;
     }
 
-    .phase-weeks {
-        text-align: left;
+    .tt-subheader {
+        padding: 8px 16px;
     }
 
-    .phase-items {
-        gap: 6px;
-    }
-
-    .phase-group-label {
-        padding: 16px 28px;
+    .phase-label {
         flex-direction: column;
-        gap: 10px;
         align-items: flex-start;
-    }
-
-    .phase-deliverables {
-        padding: 20px 28px;
+        gap: 4px;
     }
 }
 
 @media (max-width: 400px) {
     #timeline {
-        padding: 60px 16px;
+        padding: 40px 16px;
     }
 
-    .phase {
-        padding: 20px;
+    .tt-header,
+    .tt-row,
+    .tt-total,
+    .tt-grand-total {
+        grid-template-columns: 1fr 80px;
+        padding: 10px 12px;
     }
 
-    .timeline-total {
-        padding: 24px 20px;
+    .tt-feature {
+        font-size: 12px;
     }
 
-    .phase-group-label {
-        padding: 14px 20px;
-    }
-
-    .phase-deliverables {
-        padding: 16px 20px;
+    .tt-time {
+        font-size: 11px;
     }
 }
