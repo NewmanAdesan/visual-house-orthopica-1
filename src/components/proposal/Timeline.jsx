@@ -10,7 +10,7 @@ const content = {
         totalDuration: "Estimated total project duration: 4 – 5 months.",
 
         phaseA: {
-            label: "PHASE A",
+            label: "PHASE A:",
             sublabel: "UI/UX DESIGN",
             items: [
                 { feature: "User stories, acceptance criteria, and system documentation for all three roles", time: "5–7 days" },
@@ -25,7 +25,7 @@ const content = {
         },
 
         phaseB: {
-            label: "PHASE B",
+            label: "PHASE B:",
             sublabel: "DEVELOPMENT",
             groups: [
                 {
@@ -124,7 +124,7 @@ const content = {
         totalDuration: "Duración total estimada del proyecto: 4 – 5 meses.",
 
         phaseA: {
-            label: "FASE A",
+            label: "FASE A:",
             sublabel: "DISEÑO UI/UX",
             items: [
                 { feature: "Historias de usuario, criterios de aceptación y documentación del sistema para los tres roles", time: "5–7 días" },
@@ -139,7 +139,7 @@ const content = {
         },
 
         phaseB: {
-            label: "FASE B",
+            label: "FASE B:",
             sublabel: "DESARROLLO",
             groups: [
                 {
@@ -249,7 +249,7 @@ export default function Timeline() {
             {/* PHASE A */}
             <ScrollReveal className="phase-label">
                 <span className="phase-label-name">{t.phaseA.label}</span>
-                <span className="phase-label-sub">{t.phaseA.sublabel}</span>
+                <span className="phase-label-name">{t.phaseA.sublabel}</span>
             </ScrollReveal>
 
             <div className="timeline-table">
@@ -272,7 +272,7 @@ export default function Timeline() {
             {/* PHASE B */}
             <ScrollReveal className="phase-label phase-label-b">
                 <span className="phase-label-name">{t.phaseB.label}</span>
-                <span className="phase-label-sub">{t.phaseB.sublabel}</span>
+                <span className="phase-label-name">{t.phaseB.sublabel}</span>
             </ScrollReveal>
 
             {t.phaseB.groups.map((group, gi) => (
