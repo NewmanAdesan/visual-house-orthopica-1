@@ -23,6 +23,13 @@ body.light-mode {
     color: var(--navy);
 }
 
+html,
+body,
+#root {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 /* ANIMATIONS */
 @keyframes fadeUp {
     from {
